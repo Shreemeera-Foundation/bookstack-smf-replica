@@ -1,41 +1,48 @@
 {
-  "private": true,
-  "scripts": {
-    "build:css:dev": "sass ./resources/sass:./public/dist --embed-sources && npx tailwindcss -i ./resources/tailwind-css/main.css -o ./dist/tailwind-compiled.css --watch",
-    "build:css:watch": "sass ./resources/sass:./public/dist --watch --embed-sources",
-    "build:css:production": "sass ./resources/sass:./public/dist -s compressed",
-    "build:js:dev": "node dev/build/esbuild.js",
-    "build:js:watch": "chokidar --initial \"./resources/**/*.js\" -c \"npm run build:js:dev\"",
-    "build:js:production": "node dev/build/esbuild.js production",
-    "build:tailwind:dev": "npx tailwindcss -i ./resources/tailwind-css/main.css -o ./public/dist/tailwind-compiled.css --watch",
-    "build:tailwind:watch": "npx tailwindcss -i ./resources/tailwind-css/main.css -o ./public/dist/tailwind-compiled.css --watch",
-    "build:tailwind:production": "npx tailwindcss -i ./resources/tailwind-css/main.css -o ./public/dist/tailwind-compiled.css --minify",
-    "build": "npm-run-all --parallel build:*:dev",
-    "production": "npm-run-all --parallel build:*:production",
-    "dev": "npm-run-all --parallel watch livereload",
-    "watch": "npm-run-all --parallel build:*:watch",
-    "livereload": "livereload ./public/dist/",
-    "permissions": "chown -R $USER:$USER bootstrap/cache storage public/uploads"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.13",
-    "chokidar-cli": "^3.0",
-    "esbuild": "^0.15.12",
-    "livereload": "^0.9.3",
-    "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.20",
-    "postcss-import": "^15.1.0",
-    "punycode": "^2.1.1",
-    "sass": "^1.55.0",
-    "tailwindcss": "^3.2.4"
-  },
-  "dependencies": {
-    "clipboard": "^2.0.11",
-    "codemirror": "^5.65.5",
-    "dropzone": "^5.9.3",
-    "markdown-it": "^13.0.1",
-    "markdown-it-task-lists": "^2.1.1",
-    "snabbdom": "^3.5.0",
-    "sortablejs": "^1.15.0"
-  }
+    "private": true,
+    "scripts": {
+        "build:css:dev": "sass ./resources/sass:./public/dist --embed-sources --watch",
+        "build:css:watch": "sass ./resources/sass:./public/dist --watch --embed-sources",
+        "build:css:production": "sass ./resources/sass:./public/dist -s compressed",
+        "build:js:dev": "node dev/build/esbuild.js",
+        "build:js:watch": "chokidar --initial \"./resources/**/*.js\" -c \"npm run build:js:dev\"",
+        "build:js:production": "node dev/build/esbuild.js production",
+        "build:tailwind:dev": "npx tailwindcss -i ./resources/tailwind-css/main.css -o ./public/dist/tailwind-compiled.css --watch",
+        "build:tailwind:watch": "npx tailwindcss -i ./resources/tailwind-css/main.css -o ./public/dist/tailwind-compiled.css --watch",
+        "build:tailwind:production": "npx tailwindcss -i ./resources/tailwind-css/main.css -o ./public/dist/tailwind-compiled.css --minify",
+        "build": "npm-run-all --parallel build:*:dev",
+        "production": "npm-run-all --parallel build:*:production",
+        "dev": "npm-run-all --parallel watch livereload",
+        "watch": "npm-run-all --parallel build:*:watch",
+        "livereload": "livereload ./public/dist/",
+        "permissions": "chown -R $USER:$USER bootstrap/cache storage public/uploads"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.10.2",
+        "autoprefixer": "^10.4.13",
+        "bootstrap": "^5.2.3",
+        "chokidar-cli": "^3.0",
+        "esbuild": "^0.15.12",
+        "livereload": "^0.9.3",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.20",
+        "postcss-import": "^15.1.0",
+        "punycode": "^2.1.1",
+        "sass": "^1.55.0",
+        "sass-loader": "^11.0.1",
+        "tailwindcss": "^3.2.4"
+    },
+    "dependencies": {
+        "add": "^2.0.6",
+        "axios": "^1.2.2",
+        "bootstrap-sass": "^3.4.3",
+        "clipboard": "^2.0.11",
+        "codemirror": "^5.65.5",
+        "dropzone": "^5.9.3",
+        "lodash": "^4.17.21",
+        "markdown-it": "^13.0.1",
+        "markdown-it-task-lists": "^2.1.1",
+        "snabbdom": "^3.5.0",
+        "sortablejs": "^1.15.0"
+    }
 }
