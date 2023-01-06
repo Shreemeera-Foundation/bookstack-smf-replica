@@ -1,5 +1,8 @@
 @use "sass:math";
 
+// Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
 @import "reset";
 @import "variables";
 @import "mixins";
@@ -21,6 +24,7 @@
 @import "footer";
 @import "lists";
 @import "pages";
+@import "custom_bootstrap";
 
 // Jquery Sortable Styles
 .dragged {

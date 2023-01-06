@@ -32,3 +32,5 @@ import * as componentMap from "./components";
 components.register(componentMap);
 window.$components = components;
 components.init();
+
+import * as bootstrap from "bootstrap";

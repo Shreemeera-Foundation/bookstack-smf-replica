@@ -18,7 +18,7 @@
         "permissions": "chown -R $USER:$USER bootstrap/cache storage public/uploads"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.10.2",
+        "@popperjs/core": "^2.11.6",
         "autoprefixer": "^10.4.13",
         "bootstrap": "^5.2.3",
         "chokidar-cli": "^3.0",
