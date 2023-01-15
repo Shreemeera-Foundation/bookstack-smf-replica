@@ -1451,7 +1451,8 @@ module.exports = {
     },
     ...defaultModifiers,
     content: [
-        './resources/**/*.{html,js,php}'
+        './resources/**/*.{html,js,php}',
+				'./node_modules/tw-elements/dist/js/**/*.js'
     ],
     theme: {
         extend: {},
@@ -1465,6 +1466,7 @@ module.exports = {
     },
     plugins: [
 			require('@tailwindcss/typography'),
-			require('@tailwindcss/forms')
+			require('@tailwindcss/forms'),
+			require('tw-elements/dist/plugin')
     ]
 }

@@ -57,7 +57,9 @@
     </div>
 
     @yield('bottom')
+		
     <script src="{{ versioned_asset('dist/app.js') }}" nonce="{{ $cspNonce }}"></script>
+		<script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>
     @yield('scripts')
 
     @include('layouts.parts.base-body-end')

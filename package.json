@@ -39,6 +39,7 @@
     "markdown-it": "^13.0.1",
     "markdown-it-task-lists": "^2.1.1",
     "snabbdom": "^3.5.0",
-    "sortablejs": "^1.15.0"
+    "sortablejs": "^1.15.0",
+    "tw-elements": "^1.0.0-alpha13"
   }
 }
