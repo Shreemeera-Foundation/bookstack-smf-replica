@@ -1460,7 +1460,6 @@ module.exports = {
             center: true,
         },
     },
-    mode: 'jit',
     corePlugins: {
         preflight: false,
     },
