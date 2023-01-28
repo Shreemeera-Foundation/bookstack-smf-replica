@@ -4,6 +4,23 @@
 
 @layer utilities {
     .debug {
-        border:1px solid border-red-500
+        border:1px solid border-red-500;
     }
+}
+
+.smf-input-text-field {
+	@apply smf-bg-gray-50 smf-border smf-border-gray-300 smf-text-gray-900 smf-rounded-lg smf-block smf-w-full smf-p-2.5;
+	/* :focus {
+		@apply ring-primary-600 border-primary-600;
+	} */
+}
+
+.smf-input-text-field:focus {
+	@apply smf-ring-primary-600 smf-border-primary-600;
+}
+
+@screen sm {
+	.smf-input-text-field {
+		@apply smf-text-sm;
+	}
 }

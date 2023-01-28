@@ -1,15 +1,15 @@
 
 .input-base {
-  border-radius: 3px;
-  border: 1px solid #D4D4D4;
+  // border-radius: 3px;
+  // border: 1px solid #D4D4D4;
   @include lightDark(background-color, #fff, #333);
   @include lightDark(border-color, #d4d4d4, #111);
   @include lightDark(color, #666, #AAA);
   display: inline-block;
   font-size: $fs-m;
   padding: $-xs*1.8;
-  height: 40px;
-  width: 250px;
+  // height: 40px;
+  // width: 250px;
   max-width: 100%;
 
   &.neg, &.invalid {

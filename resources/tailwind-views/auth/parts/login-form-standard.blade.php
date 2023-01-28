@@ -3,16 +3,12 @@
     <div>
         <label for="email"
             class="smf-block smf-mb-2 smf-text-sm smf-font-medium smf-text-gray-900 dark:smf-text-white">{{ trans('auth.email') }}</label>
-        <input type="email" name="email" id="email"
-            class="smf-bg-gray-50 smf-border smf-border-gray-300 smf-text-gray-900 sm:smf-text-sm smf-rounded-lg focus:ring-primary-600 focus:border-primary-600 smf-block smf-w-full smf-p-2.5 dark:smf-bg-gray-700 dark:smf-border-gray-600 dark:smf-placeholder-gray-400 dark:smf-text-white dark:focus:smf-ring-blue-500 dark:focus:smf-border-blue-500"
-            placeholder="" required="">
+				@include('form.text', ['name' => 'email', 'autofocus' => true])
     </div>
     <div>
         <label for="password"
             class="smf-block smf-mb-2 smf-text-sm smf-font-medium smf-text-gray-900 dark:smf-text-white">{{ trans('auth.password') }}</label>
-        <input type="password" name="password" id="password" placeholder=""
-            class="smf-bg-gray-50 smf-border smf-border-gray-300 smf-text-gray-900 sm:smf-text-sm smf-rounded-lg focus:ring-primary-600 focus:border-primary-600 smf-block smf-w-full smf-p-2.5 dark:smf-bg-gray-700 dark:smf-border-gray-600 dark:smf-placeholder-gray-400 dark:smf-text-white dark:focus:smf-ring-blue-500 dark:focus:smf-border-blue-500"
-            required="">
+				@include('form.password', ['name' => 'password'])
     </div>
     <div class="smf-flex smf-items-center smf-justify-between">
         <div class="smf-flex smf-items-start">
