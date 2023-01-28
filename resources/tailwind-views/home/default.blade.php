@@ -30,19 +30,10 @@
 
 						{{-- Start: Carousel --}}
 						<div class="smf-carousel-with-progress smf-basis-9/12">
-							@foreach($books as $key => $book)
-								<div class="smf-card-with-progress" style="flex: none; order: 0; flex-grow: 0;">
-										<div class="smf-card-header smf-bg-contain smf-bg-no-repeat smf-bg-center" style="background-image: url('{{ $book->getBookCover() }}');">
-										</div>
-										<div class="smf-progress-indicator">
-												<div class="smf-whole-progress-indicator">
-														<div class="smf-progress-value"></div>
-												</div>
-										</div>
-								</div>
-							@endforeach
+								@include('books.parts.list', ['books' => $books, 'view' => 'grid'])
 						</div>
 						{{-- End: Carousel --}}
+
 				</div>
 		</div>
 @stop

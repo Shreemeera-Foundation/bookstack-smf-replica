@@ -91,13 +91,11 @@ menu, ol, ul {
 .smf-carousel-with-progress {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: start;
 	padding: 0px;
 	gap: 16px;
-
-	width: 980px;
-	height: 276px;
-
+	// width: 980px;
+	// height: 276px;
 	border-radius: 8px;
 	overflow-x: auto;
 }
