@@ -17,10 +17,10 @@
     @stack('social-meta')
 
     <!-- Styles and Fonts -->
-	<link rel="stylesheet" href="{{ versioned_asset('dist/tailwind-compiled.css') }}"> 
+
     <link rel="stylesheet" href="{{ versioned_asset('dist/styles.css') }}">
     <link rel="stylesheet" media="print" href="{{ versioned_asset('dist/print-styles.css') }}">
-
+	<link rel="stylesheet" href="{{ versioned_asset('dist/tailwind-compiled.css') }}"> 
 
     @yield('head')
 
@@ -48,7 +48,7 @@
 		@include('common-v2.header')
 	</header>
 
-    <div id="content" components="@yield('content-components')" class="block">
+    <div id="content" components="@yield('content-components')" class="block smf-mt-16">
         @yield('content')
     </div>
 

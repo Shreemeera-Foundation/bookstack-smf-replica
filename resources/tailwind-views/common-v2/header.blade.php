@@ -81,14 +81,13 @@
 											</a>
 										</li>
 										<li>
-											<a href="#" class="smf-block smf-px-4 smf-py-2 hover:smf-bg-gray-100 dark:hover:smf-bg-gray-600 dark:hover:smf-text-white">
-												@icon('logout')
-														{{ trans('auth.logout') }}
+											<a href=""  class="smf-block smf-px-4 smf-py-2 hover:smf-bg-gray-100 dark:hover:smf-bg-gray-600 dark:hover:smf-text-white">
 												<form action="{{ url(config('auth.method') === 'saml2' ? '/saml2/logout' : '/logout') }}"
-													method="post" style="height: 0px;">
+													method="post" style="">
 													{{ csrf_field() }}
-													<button class="" data-shortcut="logout">
-														
+													<button  class="smf-pr-16" data-shortcut="logout" style="padding-right: 70px;">
+														@icon('logout')
+														{{ trans('auth.logout') }}
 													</button>
 												</form>
 											</a>
@@ -104,14 +103,14 @@
 											</a>
 										</li>
 										<li>
-											<a href="{{ url('/preferences/shortcuts') }}" component="reading-font-resizer" option:reading-font-resizer:name="increaseFont"
-											option:reading-font-resizer:font="increase" class="smf-block smf-px-4 smf-py-2 smf-text-sm smf-text-gray-700 hover:smf-bg-gray-100 dark:hover:smf-bg-gray-600 dark:smf-text-gray-400 dark:hover:smf-text-white">
+											<a href=""  component="reading-font-resizer" option:reading-font-resizer:name="increaseFont"
+											option:reading-font-resizer:font="increase" class="icon-item smf-block smf-px-4 smf-py-2 smf-text-sm smf-text-gray-700 hover:smf-bg-gray-100 dark:hover:smf-bg-gray-600 dark:smf-text-gray-400 dark:hover:smf-text-white">
 												@icon('magnifying-glass-plus-solid') {{ trans('common.increase_reading_font_size') }}
 											</a>
 										</li>
 										<li>
-											<a href="{{ url('/preferences/shortcuts') }}" component="reading-font-resizer" option:reading-font-resizer:name="decreaseFont"
-											option:reading-font-resizer:font="decrease" class="smf-block smf-px-4 smf-py-2 smf-text-sm smf-text-gray-700 hover:smf-bg-gray-100 dark:hover:smf-bg-gray-600 dark:smf-text-gray-400 dark:hover:smf-text-white">
+											<a href="" component="reading-font-resizer" option:reading-font-resizer:name="decreaseFont"
+											option:reading-font-resizer:font="decrease" class="icon-item smf-block smf-px-4 smf-py-2 smf-text-sm smf-text-gray-700 hover:smf-bg-gray-100 dark:hover:smf-bg-gray-600 dark:smf-text-gray-400 dark:hover:smf-text-white">
 												@icon('magnifying-glass-minus-solid') {{ trans('common.decrease_reading_font_size') }}
 											</a>
 										</li>

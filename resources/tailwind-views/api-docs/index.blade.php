@@ -2,7 +2,7 @@
 
 @section('body')
 
-    <div class="container pt-xl">
+    <div class="container  smf-mt-4 pt-xl">
 
         <div class="grid right-focus reverse-collapse">
             <div>

@@ -21,7 +21,7 @@
 						</div>
 				</div>
 		</div>
-		<div class="container" id="home-default">
+		<div class="container  smf-mt-4" id="home-default">
 				<div class="carousel-parent smf-flex smf-flex-row smf-gap-x-16">
 
 						<div class="recents smf-basis-3/12 smf-space-y-6 ">
