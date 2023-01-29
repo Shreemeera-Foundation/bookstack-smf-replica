@@ -11,8 +11,8 @@ class EntityAccessTest extends TestCase
     public function test_entities_viewable_after_creator_deletion()
     {
         // Create required assets and revisions
-        $creator = $this->users->editor();
-        $updater = $this->users->viewer();
+        $creator = $this->getEditor();
+        $updater = $this->getViewer();
         $entities = $this->entities->createChainBelongingToUser($creator, $updater);
         app()->make(UserRepo::class)->destroy($creator);
         $this->entities->updatePage($entities['page'], ['html' => '<p>hello!</p>>']);
@@ -23,8 +23,8 @@ class EntityAccessTest extends TestCase
     public function test_entities_viewable_after_updater_deletion()
     {
         // Create required assets and revisions
-        $creator = $this->users->viewer();
-        $updater = $this->users->editor();
+        $creator = $this->getViewer();
+        $updater = $this->getEditor();
         $entities = $this->entities->createChainBelongingToUser($creator, $updater);
         app()->make(UserRepo::class)->destroy($updater);
         $this->entities->updatePage($entities['page'], ['html' => '<p>Hello there!</p>']);

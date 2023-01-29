@@ -170,7 +170,7 @@ class Saml2Test extends TestCase
             'saml2.onelogin.strict' => false,
         ]);
 
-        $resp = $this->actingAs($this->users->editor())->get('/');
+        $resp = $this->actingAs($this->getEditor())->get('/');
         $this->withHtml($resp)->assertElementContains('form[action$="/saml2/logout"] button', 'Logout');
     }
 

@@ -89,7 +89,7 @@ function drawingInit() {
         return Promise.resolve('');
     }
 
-    const drawingId = currentNode.getAttribute('drawio-diagram');
+    let drawingId = currentNode.getAttribute('drawio-diagram');
     return DrawIO.load(drawingId);
 }
 

@@ -160,9 +160,9 @@ class ExportTest extends TestCase
         $page = $this->entities->page();
 
         $resp = $this->asEditor()->get($page->getUrl('/export/html'));
-        $resp->assertSee($page->created_at->isoFormat('D MMMM Y HH:mm:ss'));
+        $resp->assertSee($page->created_at->formatLocalized('%e %B %Y %H:%M:%S'));
         $resp->assertDontSee($page->created_at->diffForHumans());
-        $resp->assertSee($page->updated_at->isoFormat('D MMMM Y HH:mm:ss'));
+        $resp->assertSee($page->updated_at->formatLocalized('%e %B %Y %H:%M:%S'));
         $resp->assertDontSee($page->updated_at->diffForHumans());
     }
 
@@ -275,7 +275,7 @@ class ExportTest extends TestCase
 
     public function test_page_export_with_deleted_creator_and_updater()
     {
-        $user = $this->users->viewer(['name' => 'ExportWizardTheFifth']);
+        $user = $this->getViewer(['name' => 'ExportWizardTheFifth']);
         $page = $this->entities->page();
         $page->created_by = $user->id;
         $page->updated_by = $user->id;
@@ -409,7 +409,7 @@ class ExportTest extends TestCase
         $chapter = $book->chapters()->first();
         $page = $chapter->pages()->first();
         $entities = [$book, $chapter, $page];
-        $user = $this->users->viewer();
+        $user = $this->getViewer();
         $this->actingAs($user);
 
         foreach ($entities as $entity) {
@@ -417,7 +417,8 @@ class ExportTest extends TestCase
             $resp->assertSee('/export/pdf');
         }
 
-        $this->permissions->removeUserRolePermissions($user, ['content-export']);
+        /** @var Role $role */
+        $this->removePermissionFromUser($user, 'content-export');
 
         foreach ($entities as $entity) {
             $resp = $this->get($entity->getUrl());

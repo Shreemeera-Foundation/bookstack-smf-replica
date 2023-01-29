@@ -200,7 +200,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function attachRole(Role $role)
     {
         $this->roles()->attach($role->id);
-        $this->unsetRelation('roles');
     }
 
     /**

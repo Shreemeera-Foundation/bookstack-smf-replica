@@ -50,7 +50,7 @@ class AttachmentsApiTest extends TestCase
             ],
         ]]);
 
-        $this->permissions->setEntityPermissions($page, [], []);
+        $this->entities->setPermissions($page, [], []);
 
         $resp = $this->getJson($this->baseEndpoint . '?count=1&sort=+id');
         $resp->assertJsonMissing(['data' => [
@@ -246,13 +246,13 @@ class AttachmentsApiTest extends TestCase
     public function test_attachment_not_visible_on_other_users_draft()
     {
         $this->actingAsApiAdmin();
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
 
         $page = $this->entities->page();
         $page->draft = true;
         $page->owned_by = $editor->id;
         $page->save();
-        $this->permissions->regenerateForEntity($page);
+        $this->entities->regenPermissions($page);
 
         $attachment = $this->createAttachmentForPage($page, [
             'name'  => 'my attachment',
@@ -342,7 +342,7 @@ class AttachmentsApiTest extends TestCase
 
     protected function createAttachmentForPage(Page $page, $attributes = []): Attachment
     {
-        $admin = $this->users->admin();
+        $admin = $this->getAdmin();
         /** @var Attachment $attachment */
         $attachment = $page->attachments()->forceCreate(array_merge([
             'uploaded_to' => $page->id,

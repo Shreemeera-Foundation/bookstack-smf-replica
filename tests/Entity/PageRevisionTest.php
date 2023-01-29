@@ -208,13 +208,13 @@ class PageRevisionTest extends TestCase
         $page = $this->entities->page();
         $this->createRevisions($page, 2);
 
-        $viewer = $this->users->viewer();
+        $viewer = $this->getViewer();
         $this->actingAs($viewer);
         $respHtml = $this->withHtml($this->get($page->getUrl('/revisions')));
         $respHtml->assertElementNotContains('.actions a', 'Restore');
         $respHtml->assertElementNotExists('form[action$="/restore"]');
 
-        $this->permissions->grantUserRolePermissions($viewer, ['page-update-all']);
+        $this->giveUserPermissions($viewer, ['page-update-all']);
 
         $respHtml = $this->withHtml($this->get($page->getUrl('/revisions')));
         $respHtml->assertElementContains('.actions a', 'Restore');
@@ -226,13 +226,13 @@ class PageRevisionTest extends TestCase
         $page = $this->entities->page();
         $this->createRevisions($page, 2);
 
-        $viewer = $this->users->viewer();
+        $viewer = $this->getViewer();
         $this->actingAs($viewer);
         $respHtml = $this->withHtml($this->get($page->getUrl('/revisions')));
         $respHtml->assertElementNotContains('.actions a', 'Delete');
         $respHtml->assertElementNotExists('form[action$="/delete"]');
 
-        $this->permissions->grantUserRolePermissions($viewer, ['page-delete-all']);
+        $this->giveUserPermissions($viewer, ['page-delete-all']);
 
         $respHtml = $this->withHtml($this->get($page->getUrl('/revisions')));
         $respHtml->assertElementContains('.actions a', 'Delete');

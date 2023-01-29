@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use BookStack\Auth\Permissions\JointPermissionBuilder;
 use BookStack\Auth\Permissions\RolePermission;
 use BookStack\Auth\Role;
 use BookStack\Auth\User;
@@ -88,6 +89,7 @@ class PublicActionTest extends TestCase
         foreach (RolePermission::all() as $perm) {
             $publicRole->attachPermission($perm);
         }
+        $this->app->make(JointPermissionBuilder::class)->rebuildForRole($publicRole);
         user()->clearPermissionCache();
 
         $chapter = $this->entities->chapter();
@@ -171,7 +173,7 @@ class PublicActionTest extends TestCase
     {
         $this->setSettings(['app-public' => 'true']);
         $book = $this->entities->book();
-        $this->permissions->setEntityPermissions($book);
+        $this->entities->setPermissions($book);
 
         $resp = $this->get($book->getUrl());
         $resp->assertSee('Book not found');

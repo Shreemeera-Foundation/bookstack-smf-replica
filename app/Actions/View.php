@@ -2,10 +2,8 @@
 
 namespace BookStack\Actions;
 
-use BookStack\Auth\Permissions\JointPermission;
 use BookStack\Interfaces\Viewable;
 use BookStack\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -28,12 +26,6 @@ class View extends Model
     public function viewable(): MorphTo
     {
         return $this->morphTo();
-    }
-
-    public function jointPermissions(): HasMany
-    {
-        return $this->hasMany(JointPermission::class, 'entity_id', 'viewable_id')
-            ->whereColumn('views.viewable_type', '=', 'joint_permissions.entity_type');
     }
 
     /**

@@ -246,7 +246,7 @@ class BooksApiTest extends TestCase
     {
         $types = ['html', 'plaintext', 'pdf', 'markdown'];
         $this->actingAsApiEditor();
-        $this->permissions->removeUserRolePermissions($this->users->editor(), ['content-export']);
+        $this->removePermissionFromUser($this->getEditor(), 'content-export');
 
         $book = $this->entities->book();
         foreach ($types as $type) {

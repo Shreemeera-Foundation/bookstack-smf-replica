@@ -12,7 +12,7 @@ trait TestsApi
      */
     protected function actingAsApiEditor()
     {
-        $this->actingAs($this->users->editor(), 'api');
+        $this->actingAs($this->getEditor(), 'api');
 
         return $this;
     }
@@ -22,7 +22,7 @@ trait TestsApi
      */
     protected function actingAsApiAdmin()
     {
-        $this->actingAs($this->users->admin(), 'api');
+        $this->actingAs($this->getAdmin(), 'api');
 
         return $this;
     }

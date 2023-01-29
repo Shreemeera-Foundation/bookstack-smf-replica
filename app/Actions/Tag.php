@@ -2,10 +2,8 @@
 
 namespace BookStack\Actions;
 
-use BookStack\Auth\Permissions\JointPermission;
 use BookStack\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -27,12 +25,6 @@ class Tag extends Model
     public function entity(): MorphTo
     {
         return $this->morphTo('entity');
-    }
-
-    public function jointPermissions(): HasMany
-    {
-        return $this->hasMany(JointPermission::class, 'entity_id', 'entity_id')
-            ->whereColumn('tags.entity_type', '=', 'joint_permissions.entity_type');
     }
 
     /**

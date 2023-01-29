@@ -66,19 +66,14 @@ class DrawioImageController extends Controller
      */
     public function getAsBase64($id)
     {
-        try {
-            $image = $this->imageRepo->getById($id);
-        } catch (Exception $exception) {
-            return $this->jsonError(trans('errors.drawing_data_not_found'), 404);
-        }
-
-        if ($image->type !== 'drawio' || !userCan('page-view', $image->getPage())) {
-            return $this->jsonError(trans('errors.drawing_data_not_found'), 404);
+        $image = $this->imageRepo->getById($id);
+        if (is_null($image) || $image->type !== 'drawio' || !userCan('page-view', $image->getPage())) {
+            return $this->jsonError('Image data could not be found');
         }
 
         $imageData = $this->imageRepo->getImageData($image);
         if (is_null($imageData)) {
-            return $this->jsonError(trans('errors.drawing_data_not_found'), 404);
+            return $this->jsonError('Image data could not be found');
         }
 
         return response()->json([

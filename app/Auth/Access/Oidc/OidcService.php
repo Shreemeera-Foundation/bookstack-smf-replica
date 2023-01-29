@@ -198,8 +198,7 @@ class OidcService
      */
     protected function getUserDetails(OidcIdToken $token): array
     {
-        $idClaim = $this->config()['external_id_claim'];
-        $id = $token->getClaim($idClaim);
+        $id = $token->getClaim('sub');
 
         return [
             'external_id' => $id,

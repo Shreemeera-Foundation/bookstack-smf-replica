@@ -32,11 +32,11 @@ class RegenerateReferencesTest extends TestCase
 
     public function test_settings_manage_permission_required()
     {
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
         $resp = $this->actingAs($editor)->post('/settings/maintenance/regenerate-references');
         $this->assertPermissionError($resp);
 
-        $this->permissions->grantUserRolePermissions($editor, ['settings-manage']);
+        $this->giveUserPermissions($editor, ['settings-manage']);
 
         $resp = $this->actingAs($editor)->post('/settings/maintenance/regenerate-references');
         $this->assertNotPermissionError($resp);

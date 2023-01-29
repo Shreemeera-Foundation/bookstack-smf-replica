@@ -23,17 +23,17 @@ class AuditLogTest extends TestCase
 
     public function test_only_accessible_with_right_permissions()
     {
-        $viewer = $this->users->viewer();
+        $viewer = $this->getViewer();
         $this->actingAs($viewer);
 
         $resp = $this->get('/settings/audit');
         $this->assertPermissionError($resp);
 
-        $this->permissions->grantUserRolePermissions($viewer, ['settings-manage']);
+        $this->giveUserPermissions($viewer, ['settings-manage']);
         $resp = $this->get('/settings/audit');
         $this->assertPermissionError($resp);
 
-        $this->permissions->grantUserRolePermissions($viewer, ['users-manage']);
+        $this->giveUserPermissions($viewer, ['users-manage']);
         $resp = $this->get('/settings/audit');
         $resp->assertStatus(200);
         $resp->assertSeeText('Audit Log');
@@ -41,7 +41,7 @@ class AuditLogTest extends TestCase
 
     public function test_shows_activity()
     {
-        $admin = $this->users->admin();
+        $admin = $this->getAdmin();
         $this->actingAs($admin);
         $page = $this->entities->page();
         $this->activityService->add(ActivityType::PAGE_CREATE, $page);
@@ -56,7 +56,7 @@ class AuditLogTest extends TestCase
 
     public function test_shows_name_for_deleted_items()
     {
-        $this->actingAs($this->users->admin());
+        $this->actingAs($this->getAdmin());
         $page = $this->entities->page();
         $pageName = $page->name;
         $this->activityService->add(ActivityType::PAGE_CREATE, $page);
@@ -71,12 +71,12 @@ class AuditLogTest extends TestCase
 
     public function test_shows_activity_for_deleted_users()
     {
-        $viewer = $this->users->viewer();
+        $viewer = $this->getViewer();
         $this->actingAs($viewer);
         $page = $this->entities->page();
         $this->activityService->add(ActivityType::PAGE_CREATE, $page);
 
-        $this->actingAs($this->users->admin());
+        $this->actingAs($this->getAdmin());
         app(UserRepo::class)->destroy($viewer);
 
         $resp = $this->get('settings/audit');
@@ -85,7 +85,7 @@ class AuditLogTest extends TestCase
 
     public function test_filters_by_key()
     {
-        $this->actingAs($this->users->admin());
+        $this->actingAs($this->getAdmin());
         $page = $this->entities->page();
         $this->activityService->add(ActivityType::PAGE_CREATE, $page);
 
@@ -98,7 +98,7 @@ class AuditLogTest extends TestCase
 
     public function test_date_filters()
     {
-        $this->actingAs($this->users->admin());
+        $this->actingAs($this->getAdmin());
         $page = $this->entities->page();
         $this->activityService->add(ActivityType::PAGE_CREATE, $page);
 
@@ -120,8 +120,8 @@ class AuditLogTest extends TestCase
 
     public function test_user_filter()
     {
-        $admin = $this->users->admin();
-        $editor = $this->users->editor();
+        $admin = $this->getAdmin();
+        $editor = $this->getEditor();
         $this->actingAs($admin);
         $page = $this->entities->page();
         $this->activityService->add(ActivityType::PAGE_CREATE, $page);
@@ -142,7 +142,7 @@ class AuditLogTest extends TestCase
     public function test_ip_address_logged_and_visible()
     {
         config()->set('app.proxies', '*');
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
         $page = $this->entities->page();
 
         $this->actingAs($editor)->put($page->getUrl(), [
@@ -166,7 +166,7 @@ class AuditLogTest extends TestCase
     public function test_ip_address_is_searchable()
     {
         config()->set('app.proxies', '*');
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
         $page = $this->entities->page();
 
         $this->actingAs($editor)->put($page->getUrl(), [
@@ -192,7 +192,7 @@ class AuditLogTest extends TestCase
     {
         config()->set('app.proxies', '*');
         config()->set('app.env', 'demo');
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
         $page = $this->entities->page();
 
         $this->actingAs($editor)->put($page->getUrl(), [
@@ -215,7 +215,7 @@ class AuditLogTest extends TestCase
     {
         config()->set('app.proxies', '*');
         config()->set('app.ip_address_precision', 2);
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
         $page = $this->entities->page();
 
         $this->actingAs($editor)->put($page->getUrl(), [

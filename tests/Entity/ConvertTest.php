@@ -49,16 +49,16 @@ class ConvertTest extends TestCase
     public function test_convert_chapter_to_book_requires_permissions()
     {
         $chapter = $this->entities->chapter();
-        $user = $this->users->viewer();
+        $user = $this->getViewer();
 
         $permissions = ['chapter-delete-all', 'book-create-all', 'chapter-update-all'];
-        $this->permissions->grantUserRolePermissions($user, $permissions);
+        $this->giveUserPermissions($user, $permissions);
 
         foreach ($permissions as $permission) {
-            $this->permissions->removeUserRolePermissions($user, [$permission]);
+            $this->removePermissionFromUser($user, $permission);
             $resp = $this->actingAs($user)->post($chapter->getUrl('/convert-to-book'));
             $this->assertPermissionError($resp);
-            $this->permissions->grantUserRolePermissions($user, [$permission]);
+            $this->giveUserPermissions($user, [$permission]);
         }
 
         $resp = $this->actingAs($user)->post($chapter->getUrl('/convert-to-book'));
@@ -122,16 +122,16 @@ class ConvertTest extends TestCase
     public function test_book_convert_to_shelf_requires_permissions()
     {
         $book = $this->entities->book();
-        $user = $this->users->viewer();
+        $user = $this->getViewer();
 
         $permissions = ['book-delete-all', 'bookshelf-create-all', 'book-update-all', 'book-create-all'];
-        $this->permissions->grantUserRolePermissions($user, $permissions);
+        $this->giveUserPermissions($user, $permissions);
 
         foreach ($permissions as $permission) {
-            $this->permissions->removeUserRolePermissions($user, [$permission]);
+            $this->removePermissionFromUser($user, $permission);
             $resp = $this->actingAs($user)->post($book->getUrl('/convert-to-shelf'));
             $this->assertPermissionError($resp);
-            $this->permissions->grantUserRolePermissions($user, [$permission]);
+            $this->giveUserPermissions($user, [$permission]);
         }
 
         $resp = $this->actingAs($user)->post($book->getUrl('/convert-to-shelf'));

@@ -95,16 +95,8 @@ async function upload(imageData, pageUploadedToId) {
  * @returns {Promise<string>}
  */
 async function load(drawingId) {
-    try {
-        const resp = await window.$http.get(window.baseUrl(`/images/drawio/base64/${drawingId}`));
-        return `data:image/png;base64,${resp.data.content}`;
-    } catch (error) {
-        if (error instanceof window.$http.HttpError) {
-            window.$events.showResponseError(error);
-        }
-        close();
-        throw error;
-    }
+    const resp = await window.$http.get(window.baseUrl(`/images/drawio/base64/${drawingId}`));
+    return `data:image/png;base64,${resp.data.content}`;
 }
 
 export default {show, close, upload, load};

@@ -12,11 +12,15 @@ use Illuminate\Contracts\Cache\Repository as Cache;
  */
 class SettingService
 {
-    protected Setting $setting;
-    protected Cache $cache;
-    protected array $localCache = [];
-    protected string $cachePrefix = 'setting-';
+    protected $setting;
+    protected $cache;
+    protected $localCache = [];
 
+    protected $cachePrefix = 'setting-';
+
+    /**
+     * SettingService constructor.
+     */
     public function __construct(Setting $setting, Cache $cache)
     {
         $this->setting = $setting;

@@ -21,8 +21,8 @@ class RecycleBinApiTest extends TestCase
 
     public function test_settings_manage_permission_needed_for_all_endpoints()
     {
-        $editor = $this->users->editor();
-        $this->permissions->grantUserRolePermissions($editor, ['settings-manage']);
+        $editor = $this->getEditor();
+        $this->giveUserPermissions($editor, ['settings-manage']);
         $this->actingAs($editor);
 
         foreach ($this->endpointMap as [$method, $uri]) {
@@ -34,8 +34,8 @@ class RecycleBinApiTest extends TestCase
 
     public function test_restrictions_manage_all_permission_needed_for_all_endpoints()
     {
-        $editor = $this->users->editor();
-        $this->permissions->grantUserRolePermissions($editor, ['restrictions-manage-all']);
+        $editor = $this->getEditor();
+        $this->giveUserPermissions($editor, ['restrictions-manage-all']);
         $this->actingAs($editor);
 
         foreach ($this->endpointMap as [$method, $uri]) {
@@ -47,7 +47,7 @@ class RecycleBinApiTest extends TestCase
 
     public function test_index_endpoint_returns_expected_page()
     {
-        $admin = $this->users->admin();
+        $admin = $this->getAdmin();
 
         $page = $this->entities->page();
         $book = $this->entities->book();
@@ -82,7 +82,7 @@ class RecycleBinApiTest extends TestCase
 
     public function test_index_endpoint_returns_children_count()
     {
-        $admin = $this->users->admin();
+        $admin = $this->getAdmin();
 
         $book = Book::query()->whereHas('pages')->whereHas('chapters')->withCount(['pages', 'chapters'])->first();
         $this->actingAs($admin)->delete($book->getUrl());
@@ -109,7 +109,7 @@ class RecycleBinApiTest extends TestCase
 
     public function test_index_endpoint_returns_parent()
     {
-        $admin = $this->users->admin();
+        $admin = $this->getAdmin();
         $page = $this->entities->pageWithinChapter();
 
         $this->actingAs($admin)->delete($page->getUrl());

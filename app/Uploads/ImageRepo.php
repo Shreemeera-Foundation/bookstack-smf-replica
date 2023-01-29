@@ -123,10 +123,7 @@ class ImageRepo
     public function saveNew(UploadedFile $uploadFile, string $type, int $uploadedTo = 0, int $resizeWidth = null, int $resizeHeight = null, bool $keepRatio = true): Image
     {
         $image = $this->imageService->saveNewFromUpload($uploadFile, $type, $uploadedTo, $resizeWidth, $resizeHeight, $keepRatio);
-
-        if ($type !== 'system') {
-            $this->loadThumbs($image);
-        }
+        $this->loadThumbs($image);
 
         return $image;
     }
@@ -183,17 +180,13 @@ class ImageRepo
     }
 
     /**
-     * Destroy images that have a specific URL and type combination.
+     * Destroy all images of a certain type.
      *
      * @throws Exception
      */
-    public function destroyByUrlAndType(string $url, string $imageType): void
+    public function destroyByType(string $imageType): void
     {
-        $images = Image::query()
-            ->where('url', '=', $url)
-            ->where('type', '=', $imageType)
-            ->get();
-
+        $images = Image::query()->where('type', '=', $imageType)->get();
         foreach ($images as $image) {
             $this->destroyImage($image);
         }

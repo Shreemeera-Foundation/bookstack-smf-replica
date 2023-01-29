@@ -9,8 +9,8 @@ class UserSearchTest extends TestCase
 {
     public function test_select_search_matches_by_name()
     {
-        $viewer = $this->users->viewer();
-        $admin = $this->users->admin();
+        $viewer = $this->getViewer();
+        $admin = $this->getAdmin();
         $resp = $this->actingAs($admin)->get('/search/users/select?search=' . urlencode($viewer->name));
 
         $resp->assertOk();
@@ -30,8 +30,8 @@ class UserSearchTest extends TestCase
 
     public function test_select_search_does_not_match_by_email()
     {
-        $viewer = $this->users->viewer();
-        $editor = $this->users->editor();
+        $viewer = $this->getViewer();
+        $editor = $this->getEditor();
         $resp = $this->actingAs($editor)->get('/search/users/select?search=' . urlencode($viewer->email));
 
         $resp->assertDontSee($viewer->name);
@@ -40,13 +40,13 @@ class UserSearchTest extends TestCase
     public function test_select_requires_right_permission()
     {
         $permissions = ['users-manage', 'restrictions-manage-own', 'restrictions-manage-all'];
-        $user = $this->users->viewer();
+        $user = $this->getViewer();
 
         foreach ($permissions as $permission) {
             $resp = $this->actingAs($user)->get('/search/users/select?search=a');
             $this->assertPermissionError($resp);
 
-            $this->permissions->grantUserRolePermissions($user, [$permission]);
+            $this->giveUserPermissions($user, [$permission]);
             $resp = $this->actingAs($user)->get('/search/users/select?search=a');
             $resp->assertOk();
             $user->roles()->delete();
@@ -58,7 +58,7 @@ class UserSearchTest extends TestCase
     {
         $this->setSettings(['app-public' => true]);
         $defaultUser = User::getDefault();
-        $this->permissions->grantUserRolePermissions($defaultUser, ['users-manage']);
+        $this->giveUserPermissions($defaultUser, ['users-manage']);
 
         $resp = $this->get('/search/users/select?search=a');
         $this->assertPermissionError($resp);

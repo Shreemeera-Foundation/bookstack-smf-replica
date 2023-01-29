@@ -16,10 +16,8 @@
 
         <div class="grid left-focus gap-xl">
             <div>
-                <div component="book-sort" class="card content-wrap auto-height">
-                    <h1 class="list-heading">{{ trans('entities.books_sort') }}</h1>
-                    <p class="text-muted">{{ trans('entities.books_sort_desc') }}</p>
-
+                <div component="book-sort" class="card content-wrap">
+                    <h1 class="list-heading mb-l">{{ trans('entities.books_sort') }}</h1>
                     <div refs="book-sort@sortContainer">
                         @include('books.parts.sort-box', ['book' => $book, 'bookChildren' => $bookChildren])
                     </div>
@@ -37,11 +35,10 @@
             </div>
 
             <div>
-                <main class="card content-wrap auto-height sticky-top-m">
-                    <h2 class="list-heading">{{ trans('entities.books_sort_show_other') }}</h2>
-                    <p class="text-muted">{{ trans('entities.books_sort_show_other_desc') }}</p>
+                <main class="card content-wrap">
+                    <h2 class="list-heading mb-m">{{ trans('entities.books_sort_show_other') }}</h2>
 
-                    @include('entities.selector', ['name' => 'books_list', 'selectorSize' => 'compact', 'entityTypes' => 'book', 'entityPermission' => 'update'])
+                    @include('entities.selector', ['name' => 'books_list', 'selectorSize' => 'compact', 'entityTypes' => 'book', 'entityPermission' => 'update', 'showAdd' => true])
 
                 </main>
             </div>

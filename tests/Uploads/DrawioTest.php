@@ -12,13 +12,12 @@ class DrawioTest extends TestCase
 
     public function test_get_image_as_base64()
     {
-        $page = $this->entities->page();
+        $page = Page::first();
         $this->asAdmin();
         $imageName = 'first-image.png';
 
         $this->uploadImage($imageName, $page->id);
-        /** @var Image $image */
-        $image = Image::query()->first();
+        $image = Image::first();
         $image->type = 'drawio';
         $image->save();
 
@@ -28,30 +27,10 @@ class DrawioTest extends TestCase
         ]);
     }
 
-    public function test_non_accessible_image_returns_404_error_and_message()
-    {
-        $page = $this->entities->page();
-        $this->asEditor();
-        $imageName = 'non-accessible-image.png';
-
-        $this->uploadImage($imageName, $page->id);
-        /** @var Image $image */
-        $image = Image::query()->first();
-        $image->type = 'drawio';
-        $image->save();
-        $this->permissions->disableEntityInheritedPermissions($page);
-
-        $imageGet = $this->getJson("/images/drawio/base64/{$image->id}");
-        $imageGet->assertNotFound();
-        $imageGet->assertJson([
-            'message' => 'Drawing data could not be loaded. The drawing file might no longer exist or you may not have permission to access it.',
-        ]);
-    }
-
     public function test_drawing_base64_upload()
     {
-        $page = $this->entities->page();
-        $editor = $this->users->editor();
+        $page = Page::first();
+        $editor = $this->getEditor();
         $this->actingAs($editor);
 
         $upload = $this->postJson('images/drawio', [
@@ -78,8 +57,8 @@ class DrawioTest extends TestCase
     public function test_drawio_url_can_be_configured()
     {
         config()->set('services.drawio', 'http://cats.com?dog=tree');
-        $page = $this->entities->page();
-        $editor = $this->users->editor();
+        $page = Page::first();
+        $editor = $this->getEditor();
 
         $resp = $this->actingAs($editor)->get($page->getUrl('/edit'));
         $resp->assertSee('drawio-url="http://cats.com?dog=tree"', false);
@@ -88,8 +67,8 @@ class DrawioTest extends TestCase
     public function test_drawio_url_can_be_disabled()
     {
         config()->set('services.drawio', true);
-        $page = $this->entities->page();
-        $editor = $this->users->editor();
+        $page = Page::first();
+        $editor = $this->getEditor();
 
         $resp = $this->actingAs($editor)->get($page->getUrl('/edit'));
         $resp->assertSee('drawio-url="https://embed.diagrams.net/?embed=1&amp;proto=json&amp;spin=1&amp;configure=1"', false);

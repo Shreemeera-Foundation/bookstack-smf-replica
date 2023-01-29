@@ -44,7 +44,7 @@ class AuthTest extends TestCase
 
     public function test_mfa_session_cleared_on_logout()
     {
-        $user = $this->users->editor();
+        $user = $this->getEditor();
         $mfaSession = $this->app->make(MfaSession::class);
 
         $mfaSession->markVerifiedForUser($user);
@@ -94,7 +94,7 @@ class AuthTest extends TestCase
 
     public function test_login_authenticates_nonadmins_on_default_guard_only()
     {
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
         $editor->password = bcrypt('password');
         $editor->save();
 
@@ -120,7 +120,7 @@ class AuthTest extends TestCase
     public function test_logged_in_user_with_unconfirmed_email_is_logged_out()
     {
         $this->setSettings(['registration-confirmation' => 'true']);
-        $user = $this->users->editor();
+        $user = $this->getEditor();
         $user->email_confirmed = false;
         $user->save();
 

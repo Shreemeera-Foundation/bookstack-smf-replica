@@ -88,7 +88,7 @@ class WebhookCallTest extends TestCase
         ]);
         $webhook = $this->newWebhook(['active' => true, 'endpoint' => 'https://wh.example.com'], ['all']);
         $page = $this->entities->page();
-        $editor = $this->users->editor();
+        $editor = $this->getEditor();
 
         $this->runEvent(ActivityType::PAGE_UPDATE, $page, $editor);
 
@@ -111,7 +111,7 @@ class WebhookCallTest extends TestCase
     protected function runEvent(string $event, $detail = '', ?User $user = null)
     {
         if (is_null($user)) {
-            $user = $this->users->editor();
+            $user = $this->getEditor();
         }
 
         $this->actingAs($user);

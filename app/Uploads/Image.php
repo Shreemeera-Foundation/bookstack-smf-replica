@@ -2,12 +2,10 @@
 
 namespace BookStack\Uploads;
 
-use BookStack\Auth\Permissions\JointPermission;
 use BookStack\Entities\Models\Page;
 use BookStack\Model;
 use BookStack\Traits\HasCreatorAndUpdater;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int    $id
@@ -26,12 +24,6 @@ class Image extends Model
 
     protected $fillable = ['name'];
     protected $hidden = [];
-
-    public function jointPermissions(): HasMany
-    {
-        return $this->hasMany(JointPermission::class, 'entity_id', 'uploaded_to')
-            ->where('joint_permissions.entity_type', '=', 'page');
-    }
 
     /**
      * Get a thumbnail for this image.
