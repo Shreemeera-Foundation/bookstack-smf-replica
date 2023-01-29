@@ -12,7 +12,7 @@
                 @endforeach
             </div>
         @else
-            <div class="">
+            <div class="what-is-going-on smf-grid smf-grid-cols-1 md:smf-grid-cols-2 lg:smf-grid-cols-3 smf-gap-x-4">
                 @foreach($books as $key => $book)
                     @include('entities.grid-item', ['entity' => $book])
                 @endforeach
