@@ -2,6 +2,7 @@
 
 use BookStack\Auth\Permissions\PermissionApplicator;
 use BookStack\Auth\User;
+use BookStack\Auth\Role;
 use BookStack\Model;
 use BookStack\Settings\SettingService;
 
@@ -181,4 +182,21 @@ function sortUrl(string $path, array $data, array $overrideData = []): string
     }
 
     return url($path . '?' . implode('&', $queryStringSections));
+}
+
+/**
+ * Checks if the give user is the only admin.
+ */
+function isOnlyAdmin(): bool
+{
+	if (!user() ->hasSystemRole('admin')) {
+		return false;
+	}
+
+	$adminRole = Role::getSystemRole('admin');
+	if ($adminRole->users()->count() > 1) {
+		return false;
+	}
+
+	return true;
 }
