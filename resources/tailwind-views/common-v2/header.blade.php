@@ -1,4 +1,8 @@
 <header id="header" component="header-mobile-toggle" class="smf-bg-white">
+	<div class="smf-bg-red-600 smf-text-white smf-text-center smf-py-2">
+		This is a test site. Content and features will keep on updating frequently.
+	</div>
+	
     <div class="grid mx-l">
 
         <div>
@@ -10,11 +14,12 @@
                     <span class="logo-text smf-text-gray-700">{{ setting('app-name') }}</span>
                 @endif
             </a>
+			{{-- TODO: remove the inline style once the test content is removed --}}
             <button type="button"
                     refs="header-mobile-toggle@toggle"
                     title="{{ trans('common.header_menu_expand') }}"
                     aria-expanded="false"
-                    class="mobile-menu-toggle hide-over-l smf-text-gray-700">@icon('more')</button>
+                    class="mobile-menu-toggle hide-over-l smf-text-gray-700  smf-mr-6" style="top:60px">@icon('more')</button>
         </div>
 
         <div class="flex-container-column items-center justify-center hide-under-l">
