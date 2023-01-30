@@ -123,7 +123,7 @@
                     </div>
                 @endif
 
-				@if (isOnlyAdmin())
+				@if (!isOnlyViewer())
 				
 					<div id="recent-activity">
 						<div class="card mb-xl">
