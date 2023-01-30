@@ -3,23 +3,30 @@
     <div>
         <label for="email"
             class="smf-block smf-mb-2 smf-text-sm smf-font-medium smf-text-gray-900 dark:smf-text-white">{{ trans('auth.email') }}</label>
-				@include('form.text', ['name' => 'email', 'autofocus' => true])
+        @include('form.text', ['name' => 'email', 'autofocus' => true])
     </div>
     <div>
         <label for="password"
             class="smf-block smf-mb-2 smf-text-sm smf-font-medium smf-text-gray-900 dark:smf-text-white">{{ trans('auth.password') }}</label>
-				@include('form.password', ['name' => 'password'])
+        @include('form.password', ['name' => 'password'])
     </div>
     <div class="smf-flex smf-items-center smf-justify-between">
         <div class="smf-flex smf-items-start">
             <div class="smf-flex smf-items-center smf-h-5">
-                <input id="remember" aria-describedby="remember" type="checkbox"
-                    class="smf-w-4 smf-h-4 smf-border smf-border-gray-300 smf-rounded smf-bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:smf-bg-gray-700 dark:smf-border-gray-600 dark:focus:ring-primary-600 dark:smf-ring-offset-gray-800">
+				{{-- <input id="remember" type="checkbox"  class="smf-w-4 smf-h-4 smf-border smf-border-gray-300 smf-rounded smf-bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:smf-bg-gray-700 dark:smf-border-gray-600 dark:focus:ring-primary-600 dark:smf-ring-offset-gray-800 checked:smf-bg-blue-500"> --}}
+				@include('form.custom-checkbox', [
+                'name' => 'remember',
+                'checked' => false,
+                'value' => 'on',
+                'label' => trans('auth.remember_me'),
+            ])
+                
             </div>
-            <div class="smf-ml-3 smf-text-sm">
+            {{-- <div class="smf-ml-3 smf-text-sm">
                 <label for="remember"
                     class="smf-text-gray-500 dark:smf-text-gray-300">{{ trans('auth.remember_me') }}</label>
-            </div>
+            </div> --}}
+			
         </div>
         <a href="{{ url('/password/email') }}"
             class="smf-text-sm smf-font-medium text-primary-600 hover:smf-underline dark:text-primary-500">{{ trans('auth.forgot_password') }}</a>
