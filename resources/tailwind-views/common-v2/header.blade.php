@@ -7,7 +7,7 @@
                     <img class="logo-image" src="{{ setting('app-logo', '') === '' ? url('/logo.png') : url(setting('app-logo', '')) }}" alt="Logo">
                 @endif
                 @if (setting('app-name-header'))
-                    <span class="logo-text">{{ setting('app-name') }}</span>
+                    <span class="logo-text smf-text-gray-700">{{ setting('app-name') }}</span>
                 @endif
             </a>
             <button type="button"
@@ -24,7 +24,8 @@
                         refs="global-search@button"
                         type="submit"
                         aria-label="{{ trans('common.search') }}"
-                        tabindex="-1">@icon('search')</button>
+                        tabindex="-1"
+						class="smf-text-gray-700">@icon('search')</button>
                 <input id="header-search-box-input"
                        refs="global-search@input"
                        type="text"
@@ -32,6 +33,7 @@
                        data-shortcut="global_search"
                        autocomplete="off"
                        aria-label="{{ trans('common.search') }}" placeholder="{{ trans('common.search') }}"
+					   class="smf-bg-white smf-border-gray-300 smf-placeholder-gray-400"
                        value="{{ $searchTerm ?? '' }}">
                 <div refs="global-search@suggestions" class="global-search-suggestions card">
                     <div refs="global-search@loading" class="text-center px-m global-search-loading">@include('common.loading-icon')</div>
