@@ -1,6 +1,6 @@
 @component('entities.list-item-basic', ['entity' => $entity, 'classes' => (($locked ?? false) ? 'disabled ' : '') . ($classes ?? '') ])
 
-<div class="entity-item-snippet">
+<div class="entity-item-snippet smf-block">
 
     @if($locked ?? false)
         <div class="text-warn my-xxs bold">

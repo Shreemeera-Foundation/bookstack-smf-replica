@@ -6,7 +6,7 @@ $key - Unique key for checking existing stored state.
 <button component="expand-toggle"
         option:expand-toggle:target-selector="{{ $target }}"
         option:expand-toggle:update-endpoint="{{ url('/preferences/change-expansion/' . $key) }}"
-        option:expand-toggle:is-open="{{ $isOpen ? 'true' : 'false' }}"
+        option:expand-toggle:is-open="true"
         type="button"
         class="icon-list-item {{ $classes ?? '' }}">
     <span>@icon('expand-text')</span>
