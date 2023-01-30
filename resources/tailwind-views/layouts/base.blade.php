@@ -43,12 +43,9 @@
     @include('layouts.parts.base-body-start')
     @include('common.skip-to-content')
     @include('common.notifications')
-    {{-- @include('common.header') --}}
-	<header>
-		@include('common-v2.header')
-	</header>
+    @include('common-v2.header')
 
-    <div id="content" components="@yield('content-components')" class="block smf-mt-16">
+    <div id="content" components="@yield('content-components')" class="block">
         @yield('content')
     </div>
 

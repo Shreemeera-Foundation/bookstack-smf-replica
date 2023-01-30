@@ -1476,6 +1476,7 @@ module.exports = {
         },
     },
 	prefix: 'smf-',
+	important: true,
     mode: 'jit',
     corePlugins: {
     },
