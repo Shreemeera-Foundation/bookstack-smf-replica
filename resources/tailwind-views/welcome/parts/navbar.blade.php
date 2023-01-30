@@ -20,12 +20,14 @@
 				  </li>
 				</ul>
 			</div>
-			<div class="smf-flex md:smf-order-1">
-				<button type="button" id="userRegistration"class="smf-text-white smf-bg-blue-700 hover:smf-bg-blue-800 focus:smf-ring-4 focus:smf-outline-none focus:smf-ring-blue-300 smf-font-medium smf-rounded-lg smf-text-sm smf-px-5 smf-py-2.5 smf-text-center smf-mr-3 md:smf-mr-0 dark:smf-bg-blue-600 dark:hover:smf-bg-blue-700 dark:focus:smf-ring-blue-800">Get started</button>
-				<button data-collapse-toggle="navbar-sticky" type="button" class="smf-inline-flex smf-items-center smf-p-2 smf-text-sm smf-text-gray-500 smf-rounded-lg md:smf-hidden hover:smf-bg-gray-100 focus:smf-outline-none focus:smf-ring-2 focus:smf-ring-gray-200 dark:smf-text-gray-400 dark:hover:smf-bg-gray-700 dark:focus:smf-ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+			<div class="smf-flex md:smf-order-1 smf-items-center">
+				<a href="/login" class="smf-p-2 smf-text-sm smf-text-gray-500 smf-rounded-lg md:smf-hidden hover:smf-bg-gray-100 focus:smf-outline-none focus:smf-ring-2 focus:smf-ring-gray-200 dark:smf-text-gray-400 dark:hover:smf-bg-gray-700 dark:focus:smf-ring-gray-600 smf-mr-3">Login</a>
+				<button type="button" id="userRegistration"class="text-white smf-bg-blue-700 hover:smf-bg-blue-800 focus:smf-ring-4 focus:smf-ring-blue-300 smf-font-medium smf-rounded-lg smf-text-sm smf-px-5 smf-py-2.5 dark:smf-bg-blue-600 dark:hover:smf-bg-blue-700 focus:smf-outline-none dark:focus:smf-ring-blue-800">Get started</button>
+				
+				{{-- <button data-collapse-toggle="navbar-sticky" type="button" class="smf-inline-flex smf-items-center smf-p-2 smf-text-sm smf-text-gray-500 smf-rounded-lg md:smf-hidden hover:smf-bg-gray-100 focus:smf-outline-none focus:smf-ring-2 focus:smf-ring-gray-200 dark:smf-text-gray-400 dark:hover:smf-bg-gray-700 dark:focus:smf-ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
 				<span class="smf-sr-only">Open main menu</span>
 				<svg class="smf-w-6 smf-h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-				</button>
+				</button> --}}
 			</div>
 		</div>
 
