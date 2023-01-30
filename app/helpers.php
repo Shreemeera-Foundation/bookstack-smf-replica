@@ -200,3 +200,21 @@ function isOnlyAdmin(): bool
 
 	return true;
 }
+
+/**
+ * Checks if the give user is  only viewer.
+ */
+function isOnlyViewer(): bool
+{
+	if (!user() ->hasSystemRole('viewer')) {
+		return false;
+	}
+
+	$viewerRole = Role::getSystemRole('viewer');
+	if ($viewerRole->users()->count() > 1) {
+		return false;
+	}
+
+	return true;
+}
+
