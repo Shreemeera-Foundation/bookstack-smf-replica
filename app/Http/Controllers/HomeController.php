@@ -10,13 +10,25 @@ use BookStack\Entities\Queries\TopFavourites;
 use BookStack\Entities\Repos\BookRepo;
 use BookStack\Entities\Repos\BookshelfRepo;
 use BookStack\Entities\Tools\PageContent;
+use BookStack\Entities\Tools\ShelfContext;
 use BookStack\Util\SimpleListOptions;
+use BookStack\References\ReferenceFetcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+
 class HomeController extends Controller
 {
-    /**
+    protected BookRepo $bookRepo;
+    protected ShelfContext $shelfContext;
+    protected ReferenceFetcher $referenceFetcher;
+
+	public function __construct(ShelfContext $entityContextManager, BookRepo $bookRepo, ReferenceFetcher $referenceFetcher)
+    {
+        $this->bookRepo = $bookRepo;
+    }
+
+	/**
      * Display the homepage.
      */
     public function index(Request $request, ActivityQueries $activities)
@@ -53,6 +65,8 @@ class HomeController extends Controller
         if (!in_array($homepageOption, $homepageOptions)) {
             $homepageOption = 'default';
         }
+		$view = setting()->getForCurrentUser('books_view_type');
+		$new = $this->bookRepo->getRecentlyCreated(6);
 
         $commonData = [
             'activity'             => $activity,
@@ -60,6 +74,7 @@ class HomeController extends Controller
             'recentlyUpdatedPages' => $recentlyUpdatedPages,
             'draftPages'           => $draftPages,
             'favourites'           => $favourites,
+			'new'			   	   => $new 
         ];
 
         // Add required list ordering & sorting for books & shelves views.
