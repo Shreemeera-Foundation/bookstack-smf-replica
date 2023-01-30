@@ -76,27 +76,31 @@
         </div>
     @endif
 
-    <div id="details" class="mb-xl">
-        <h5>{{ trans('common.details') }}</h5>
-        <div class="blended-links">
-            @include('entities.meta', ['entity' => $shelf])
-            @if($shelf->hasPermissions())
-                <div class="active-restriction">
-                    @if(userCan('restrictions-manage', $shelf))
-                        <a href="{{ $shelf->getUrl('/permissions') }}" class="entity-meta-item">
-                            @icon('lock')
-                            <div>{{ trans('entities.shelves_permissions_active') }}</div>
-                        </a>
-                    @else
-                        <div class="entity-meta-item">
-                            @icon('lock')
-                            <div>{{ trans('entities.shelves_permissions_active') }}</div>
-                        </div>
-                    @endif
-                </div>
-            @endif
-        </div>
-    </div>
+
+	<div id="details" class="mb-xl">
+		@if (!isOnlyViewer())
+			<h5>{{ trans('common.details') }}</h5>
+			<div class="blended-links">
+				@include('entities.meta', ['entity' => $shelf])
+				@if($shelf->hasPermissions())
+					<div class="active-restriction">
+						@if(userCan('restrictions-manage', $shelf))
+							<a href="{{ $shelf->getUrl('/permissions') }}" class="entity-meta-item">
+								@icon('lock')
+								<div>{{ trans('entities.shelves_permissions_active') }}</div>
+							</a>
+						@else
+							<div class="entity-meta-item">
+								@icon('lock')
+								<div>{{ trans('entities.shelves_permissions_active') }}</div>
+							</div>
+						@endif
+					</div>
+				@endif
+			</div>
+		@endif
+	</div>
+	
 
     @if(count($activity) > 0  && !isOnlyViewer())
         <div class="mb-xl">
