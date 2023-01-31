@@ -11,7 +11,7 @@
                     <img class="logo-image" src="{{ setting('app-logo', '') === '' ? url('/logo.png') : url(setting('app-logo', '')) }}" alt="Logo">
                 @endif
                 @if (setting('app-name-header'))
-                    <span class="logo-text smf-text-gray-700">{{ setting('app-name') }}</span>
+                    <span class="logo-text smf-text-gray-500">{{ setting('app-name') }}</span>
                 @endif
             </a>
 			{{-- TODO: remove the inline style once the test content is removed --}}
@@ -19,7 +19,7 @@
                     refs="header-mobile-toggle@toggle"
                     title="{{ trans('common.header_menu_expand') }}"
                     aria-expanded="false"
-                    class="mobile-menu-toggle hide-over-l smf-text-gray-700  smf-mr-6" style="top:60px">@icon('more')</button>
+                    class="mobile-menu-toggle hide-over-l smf-text-gray-500  smf-mr-6" style="top:60px">@icon('more')</button>
         </div>
 
         <div class="flex-container-column items-center justify-center hide-under-l">
@@ -30,7 +30,7 @@
                         type="submit"
                         aria-label="{{ trans('common.search') }}"
                         tabindex="-1"
-						class="smf-text-gray-700">@icon('search')</button>
+						class="smf-text-gray-500">@icon('search')</button>
                 <input id="header-search-box-input"
                        refs="global-search@input"
                        type="text"
@@ -49,27 +49,27 @@
             @endif
         </div>
 
-        <nav refs="header-mobile-toggle@menu" class="header-links smf-text-gray-700" >
-            <div class="links text-center smf-text-gray-700">
+        <nav refs="header-mobile-toggle@menu" class="header-links smf-text-gray-500" >
+            <div class="links text-center smf-text-gray-500">
                 @if (hasAppAccess())
-                    <a class="hide-over-l smf-px-4 smf-py-2.5 smf-text-gray-700" href="{{ url('/search') }}">@icon('search'){{ trans('common.search') }}</a>
+                    <a class="hide-over-l smf-px-4 smf-py-2.5 smf-text-gray-500" href="{{ url('/search') }}">@icon('search'){{ trans('common.search') }}</a>
                     @if(userCanOnAny('view', \BookStack\Entities\Models\Bookshelf::class) || userCan('bookshelf-view-all') || userCan('bookshelf-view-own'))
                         <a class = "smf-px-4 smf-py-2.5 smf-text-gray-700" href="{{ url('/shelves') }}" data-shortcut="shelves_view">@icon('bookshelf'){{ trans('entities.shelves') }}</a>
                     @endif
-                    <a class = "smf-px-4 smf-py-2.5 smf-text-gray-700" href="{{ url('/books') }}" data-shortcut="books_view">@icon('books'){{ trans('entities.books') }}</a>
+                    <a class = "smf-px-4 smf-py-2.5 smf-text-gray-500" href="{{ url('/books') }}" data-shortcut="books_view">@icon('books'){{ trans('entities.books') }}</a>
                     @if(signedInUser() && userCan('settings-manage'))
-                        <a class = "smf-px-4 smf-py-2.5 smf-text-gray-700"  href="{{ url('/settings') }}" data-shortcut="settings_view">@icon('settings'){{ trans('settings.settings') }}</a>
+                        <a class = "smf-px-4 smf-py-2.5 smf-text-gray-500"  href="{{ url('/settings') }}" data-shortcut="settings_view">@icon('settings'){{ trans('settings.settings') }}</a>
                     @endif
                     @if(signedInUser() && userCan('users-manage') && !userCan('settings-manage'))
-                        <a class = "smf-px-4 smf-py-2.5 smf-text-gray-700" href="{{ url('/settings/users') }}" data-shortcut="settings_view">@icon('users'){{ trans('settings.users') }}</a>
+                        <a class = "smf-px-4 smf-py-2.5 smf-text-gray-500" href="{{ url('/settings/users') }}" data-shortcut="settings_view">@icon('users'){{ trans('settings.users') }}</a>
                     @endif
                 @endif
 
                 @if(!signedInUser())
                     @if(setting('registration-enabled') && config('auth.method') === 'standard')
-                        <a class = "smf-px-4 smf-py-2.5 smf-text-gray-700"  href="{{ url('/register') }}">@icon('new-user'){{ trans('auth.sign_up') }}</a>
+                        <a class = "smf-px-4 smf-py-2.5 smf-text-gray-500"  href="{{ url('/register') }}">@icon('new-user'){{ trans('auth.sign_up') }}</a>
                     @endif
-                    <a class = "smf-px-4 smf-py-2.5 smf-text-gray-700"  href="{{ url('/login')  }}">@icon('login'){{ trans('auth.log_in') }}</a>
+                    <a class = "smf-px-4 smf-py-2.5 smf-text-gray-500"  href="{{ url('/login')  }}">@icon('login'){{ trans('auth.log_in') }}</a>
                 @endif
             </div>
             @if(signedInUser())

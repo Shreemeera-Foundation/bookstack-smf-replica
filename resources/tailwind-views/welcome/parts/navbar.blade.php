@@ -2,8 +2,10 @@
 
 	<div class="container smf-flex smf-flex-wrap smf-justify-between smf-mx-auto">
 		<a href="/" class="smf-flex smf-items-center">
-			<img src="https://shreemeera.org/wp-content/uploads/2019/08/cropped-67538685_2347594382014334_5679116748763168768_o-300x106.jpg" class="smf-h-6 smf-mr-3 sm:smf-h-9" alt="Flowbite Logo">
-			<span class="smf-self-center smf-text-xl smf-font-semibold smf-whitespace-nowrap dark:smf-text-white">Petals</span>
+			@if(setting('app-logo', '') !== 'none')
+				<img class="logo-image" src="{{ setting('app-logo', '') === '' ? url('/logo.png') : url(setting('app-logo', '')) }}" class="smf-h-6 smf-mr-3 sm:smf-h-9" alt="Petals">
+			@endif
+			<span class="smf-self-center smf-text-xl smf-text-gray-500 smf-font-semibold smf-whitespace-nowrap smf-ml-2 dark:smf-text-white">Petals</span>
 		</a>
 	
 		<div  class="smf-flex smf-flex-row ">
