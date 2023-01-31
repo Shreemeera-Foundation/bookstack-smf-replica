@@ -46,7 +46,7 @@ class Book extends Entity implements HasCoverImage
      *
      * @return string
      */
-    public function getBookCover($width = 440, $height = 250)
+    public function getBookCover($width = 280, $height = 420)
     {
         $default = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
         if (!$this->image_id) {

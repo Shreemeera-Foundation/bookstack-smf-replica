@@ -1,9 +1,10 @@
-    {{-- <div class="grid half v-center no-row-gap">
+<main class="content-wrap mt-m card">
+	<div class="grid half v-center no-row-gap">
         <h1 class="list-heading">{{ trans('entities.books') }}</h1>
         <div class="text-m-right my-m">
             @include('common.sort', $listOptions->getSortControlData())
         </div>
-    </div> --}}
+    </div>
     @if(count($books) > 0)
         @if($view === 'list')
             <div class="entity-list">
@@ -27,3 +28,4 @@
             <a href="{{ url("/create-book") }}" class="text-pos">@icon('edit'){{ trans('entities.create_now') }}</a>
         @endif
     @endif
+</main>
