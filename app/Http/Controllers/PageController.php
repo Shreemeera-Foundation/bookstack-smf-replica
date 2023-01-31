@@ -2,6 +2,7 @@
 
 namespace BookStack\Http\Controllers;
 
+use BookStack\Services\JiraService;
 use BookStack\Actions\View;
 use BookStack\Entities\Models\Page;
 use BookStack\Entities\Repos\PageRepo;
@@ -19,19 +20,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Throwable;
+use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
 {
     protected PageRepo $pageRepo;
     protected ReferenceFetcher $referenceFetcher;
+		protected JiraService $jiraService;
 
     /**
      * PageController constructor.
      */
-    public function __construct(PageRepo $pageRepo, ReferenceFetcher $referenceFetcher)
+    public function __construct(PageRepo $pageRepo, ReferenceFetcher $referenceFetcher, JiraService $jiraService)
     {
         $this->pageRepo = $pageRepo;
         $this->referenceFetcher = $referenceFetcher;
+				$this->jiraService = $jiraService;
     }
 
     /**
@@ -450,5 +454,38 @@ class PageController extends Controller
         $this->showSuccessNotification(trans('entities.pages_copy_success'));
 
         return redirect($pageCopy->getUrl());
+    }
+
+		/**
+     * Send feedback to SMF Jira instance
+     *
+     * @throws NotFoundException
+     */
+    public function sendFeedback(Request $request, int $pageId)
+    {
+				$feedbackText = $request->input('feedbackText');
+
+				if($feedbackText === null) {
+					return response()->json([
+						"status" => 400,
+						"error" => [
+							"message" => "Feedback must be provided"
+						]
+					], 400);
+				}
+
+				$this->jiraService->createTask([
+					'feedbackText' => $feedbackText,
+					'textHighlightedByUser' => $request->input('currentPointerSelectionText'),
+					'pageUrl' => $request->input('currentPermalink'),
+					'userAgent' => $request->header('User-Agent'),
+					'userProfileUrl' => user()->getProfileUrl(),
+					'userShortName' => user()->getShortName(9),
+					'userLogDescription' => user()->logDescriptor()
+				]);
+
+        return response()->json([
+					"message"=>"asdfsad"
+				]);	
     }
 }

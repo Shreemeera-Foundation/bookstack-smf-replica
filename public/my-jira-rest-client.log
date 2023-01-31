@@ -1,0 +1,2 @@
+[2023-01-31T08:25:39.010501+00:00] JiraClient.INFO: Create Issue= {"fields":{"summary":"Feedback ticket","issuetype":{"name":"Bug"},"description":"Full description for issue","project":{"key":"PDI"},"assignee":{"name":"dev"}}} [] []
+[2023-01-31T08:25:39.010883+00:00] JiraClient.INFO: Curl POST: https://shreemeera.atlassian.net/rest/api/2/issue JsonData={"fields":{"summary":"Feedback ticket","issuetype":{"name":"Bug"},"description":"Full description for issue","project":{"key":"PDI"},"assignee":{"name":"dev"}}} [] []

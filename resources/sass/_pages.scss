@@ -197,10 +197,10 @@ body.tox-fullscreen, body.markdown-fullscreen {
   border-radius: 4px;
   box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.1);
   @include lightDark(background-color, #fff, #333);
-  width: 275px;
+  // width: 275px;
 
   &.is-page-editable {
-    width: 328px;
+    // width: 328px;
   }
 
   &:before {

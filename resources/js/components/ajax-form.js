@@ -53,6 +53,18 @@ export class AjaxForm extends Component {
     submitRealForm(event) {
         event.preventDefault();
         const fd = new FormData(this.container);
+				console.log(`this.$opts `,this.$opts)
+				if(this.$opts.localStorageProperty) {
+					const properties = new Set(this.$opts.localStorageProperty.split(','));
+					for (const currentLocalStorageProperty of properties) {
+						const propValue = 	window.localStorage.getItem(currentLocalStorageProperty, null);	
+						fd.append(currentLocalStorageProperty, propValue)
+					}
+				}
+				// Display the key/value pairs
+				for (var pair of fd.entries()) {
+					console.log(pair[0]+ ', ' + pair[1]); 
+				}
         this.submit(fd);
     }
 

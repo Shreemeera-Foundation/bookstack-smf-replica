@@ -137,4 +137,9 @@ return [
         'thumbnail_attribute'    => env('LDAP_THUMBNAIL_ATTRIBUTE', null),
     ],
 
+		'jira' => [
+			'host' => env('JIRAAPI_V3_HOST', null),
+			'userEmailAddress' => env('JIRAAPI_V3_USER_EMAIL_ADDRESS',null),
+			'personalAccessToken' => env('JIRAAPI_V3_PERSONAL_ACCESS_TOKEN',null),
+		]
 ];

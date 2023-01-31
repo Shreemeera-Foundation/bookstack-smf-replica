@@ -71,7 +71,11 @@ export class Pointer extends Component {
      */
     showPointerAtTarget(element, xPosition) {
         const selection = window.getSelection();
-        if (selection.toString().length === 0) return;
+        if (selection.toString().length === 0) {
+					window.localStorage.setItem(`currentPointerSelectionText`, null);	
+					window.localStorage.setItem(`currentPermalink`, null);
+					return
+				}
 
         // Show pointer and set link
         this.pointerSectionId = element.id;
@@ -111,6 +115,9 @@ export class Pointer extends Component {
         if (this.pointerModeLink && !inputText.startsWith('http')) {
             inputText = window.location.protocol + "//" + window.location.host + inputText;
         }
+
+				window.localStorage.setItem(`currentPointerSelectionText`, window.getSelection().toString());
+				window.localStorage.setItem(`currentPermalink`, inputText);
 
         this.container.querySelector('input').value = inputText;
 
