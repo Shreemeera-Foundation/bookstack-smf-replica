@@ -75,18 +75,14 @@ class BookRepo
 				->having('view_count', '>', 0)
 				->orderBy('view_count', 'desc')
 				->take($count)->get();
-
-
-
 			}
 			else
-			{				return Book::visible()->where('ismasterbook','=',0)->withLastView()
-				->having('last_viewed_at', '>', 0)
-				->orderBy('last_viewed_at', 'desc')
+			{
+				return Book::visible()->where('ismasterbook','=',0)->withViewCount()
+				->having('view_count', '>', 0)
+				->orderBy('view_count', 'desc')
 				->take($count)->get();
-
 			}
-
     }
 
     /**
