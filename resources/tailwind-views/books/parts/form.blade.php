@@ -9,7 +9,15 @@
     <label for="description">{{ trans('common.description') }}</label>
     @include('form.textarea', ['name' => 'description'])
 </div>
-
+<div class="flex min-width-m text-m-center">
+	{{-- <input type="checkbox" name="ismasterbook"> --}}
+	@include('form.toggle-switch', [
+		'name' => 'ismasterbook',
+		'value' => old('ismasterbook') ?? $model->ismasterbook ?? true,
+		'label' => trans('entities.master_book_toggle_label'),
+])
+	{{-- <label for="description">{{ trans('entities.master_book_toggle_label') }}</label> --}}
+</div>
 <div class="form-group collapsible" component="collapsible" id="logo-control">
     <button refs="collapsible@trigger" type="button" class="collapse-title text-primary" aria-expanded="false">
         <label>{{ trans('common.cover_image') }}</label>

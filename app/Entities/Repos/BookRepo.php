@@ -36,7 +36,12 @@ class BookRepo
      */
     public function getAllPaginated(int $count = 20, string $sort = 'name', string $order = 'asc'): LengthAwarePaginator
     {
-        return Book::visible()->with('cover')->orderBy($sort, $order)->paginate($count);
+			if (!user()->hasSystemRole('admin')) {
+				return Book::visible()->where('ismasterbook','=',0)->with('cover')->orderBy($sort, $order)->paginate($count);
+			}
+			else{
+				return Book::visible()->with('cover')->orderBy($sort, $order)->paginate($count);
+			}
     }
 
     /**
@@ -44,10 +49,19 @@ class BookRepo
      */
     public function getRecentlyViewed(int $count = 20): Collection
     {
-        return Book::visible()->withLastView()
-            ->having('last_viewed_at', '>', 0)
-            ->orderBy('last_viewed_at', 'desc')
-            ->take($count)->get();
+				if (!user()->hasSystemRole('admin')) {
+					return Book::visible()->withLastView()
+					->where('ismasterbook','=',0)
+					->having('last_viewed_at', '>', 0)
+					->orderBy('last_viewed_at', 'desc')
+					->take($count)->get();
+				}
+				else{
+					return Book::visible()->withLastView()
+					->having('last_viewed_at', '>', 0)
+					->orderBy('last_viewed_at', 'desc')
+					->take($count)->get();
+				}
     }
 
     /**
@@ -55,10 +69,24 @@ class BookRepo
      */
     public function getPopular(int $count = 20): Collection
     {
-        return Book::visible()->withViewCount()
-            ->having('view_count', '>', 0)
-            ->orderBy('view_count', 'desc')
-            ->take($count)->get();
+			if (user()->hasSystemRole('admin')) {
+
+				return Book::visible()->withViewCount()
+				->having('view_count', '>', 0)
+				->orderBy('view_count', 'desc')
+				->take($count)->get();
+
+
+
+			}
+			else
+			{				return Book::visible()->where('ismasterbook','=',0)->withLastView()
+				->having('last_viewed_at', '>', 0)
+				->orderBy('last_viewed_at', 'desc')
+				->take($count)->get();
+
+			}
+
     }
 
     /**
@@ -66,8 +94,16 @@ class BookRepo
      */
     public function getRecentlyCreated(int $count = 20): Collection
     {
-        return Book::visible()->orderBy('created_at', 'desc')
-            ->take($count)->get();
+		if (!user()->hasSystemRole('admin')) {
+			return Book::visible()->where('ismasterbook','=',0)->orderBy('created_at', 'desc')
+			->take($count)->get();
+		}
+		else
+		{        return Book::visible()->orderBy('created_at', 'desc')
+									->take($count)->get();
+
+		}
+
     }
 
     /**

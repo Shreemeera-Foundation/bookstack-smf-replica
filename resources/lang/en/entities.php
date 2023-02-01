@@ -112,6 +112,7 @@ return [
     'shelves_copy_permission_success' => 'Shelf permissions copied to :count books',
 
     // Books
+		'master_book_toggle_label' => 'Is this master book?',
     'book' => 'Book',
     'books' => 'Books',
     'x_books' => ':count Book|:count Books',
