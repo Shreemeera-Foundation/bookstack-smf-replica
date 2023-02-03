@@ -25,6 +25,7 @@ class BookFactory extends Factory
             'name'        => $this->faker->sentence,
             'slug'        => Str::random(10),
             'description' => $this->faker->paragraph,
+						'ismasterbook' => 1
         ];
     }
 }

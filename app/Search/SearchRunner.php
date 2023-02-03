@@ -5,7 +5,9 @@ namespace BookStack\Search;
 use BookStack\Auth\Permissions\PermissionApplicator;
 use BookStack\Auth\User;
 use BookStack\Entities\EntityProvider;
+use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\BookChild;
+use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Entity;
 use BookStack\Entities\Models\Page;
 use Illuminate\Database\Connection;
@@ -17,6 +19,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SplObjectStorage;
+use Illuminate\Support\Facades\Log;
+
 
 class SearchRunner
 {
@@ -160,12 +164,32 @@ class SearchRunner
     protected function buildQuery(SearchOptions $searchOpts, Entity $entityModelInstance): EloquentBuilder
     {
         $entityQuery = $entityModelInstance->newQuery()->scopes('visible');
+				$isAdmin = user()->hasSystemRole('admin');
 
         if ($entityModelInstance instanceof Page) {
             $entityQuery->select(array_merge($entityModelInstance::$listAttributes, ['owned_by']));
         } else {
             $entityQuery->select(['*']);
         }
+				$entityname = $entityModelInstance->getMorphClass();
+				Log::info("is admin. { $isAdmin }");
+				//|| $entityname == 'page' || $entityname == 'books'
+				if(!$isAdmin && ($entityname == 'chapter' || $entityname == 'page')){
+					Log::info('inside chapter/page');
+					$entityQuery->whereIn('book_id', function ($query) {
+					$query->select('id')
+					->from(with(new Book)->getTable())
+					->where('ismasterbook',0);
+					});
+				}
+				elseif($isAdmin && ($entityname == 'chapter' || $entityname == 'page')){
+					Log::info('inside chapter/page');
+					$entityQuery->whereIn('book_id', function ($query) {
+					$query->select('id')
+					->from(with(new Book)->getTable())
+					->where('ismasterbook',1);
+					});
+				}
 
         // Handle normal search terms
         $this->applyTermSearch($entityQuery, $searchOpts, $entityModelInstance);
@@ -191,6 +215,8 @@ class SearchRunner
             }
         }
 
+				$this->filterIsMasterBook($entityQuery, $entityModelInstance, 0);
+
         return $entityQuery;
     }
 
@@ -199,10 +225,15 @@ class SearchRunner
      */
     protected function applyTermSearch(EloquentBuilder $entityQuery, SearchOptions $options, Entity $entity): void
     {
+			Log::info("applyTermSearch");
+			$isAdmin = user()->hasSystemRole('admin');
         $terms = $options->searches;
         if (count($terms) === 0) {
             return;
         }
+
+				$entityname = $entity->getMorphClass();
+				$entityTableName = $entity->getTable();
 
         $scoredTerms = $this->getTermAdjustments($options);
         $scoreSelect = $this->selectForScoredTerms($scoredTerms);
@@ -212,10 +243,48 @@ class SearchRunner
             'entity_type',
             DB::raw($scoreSelect['statement']),
         ]);
+				Log::info($entityname);
+
+/* 				if($entityname == 'chapter'){
+					Log::info('inside chapter');
+					$subQuery->join('chapters','entity_id','chapters.id');
+					$subQuery->join('books', 'chapters.book_id', '=', 'books.id');
+					$subQuery->where('books.ismasterbook', '=', 0);
+				}
+				elseif( $entityname == 'page'){
+					Log::info('inside pages');
+					$subQuery->join('pages','entity_id','pages.id');
+					$subQuery->join('books', 'pages.book_id', '=', 'books.id');
+					$subQuery->where('books.ismasterbook', '=', 0);
+				}
+				elseif( $entityname == 'book'){
+					Log::info('inside book');
+					$subQuery->join('books', 'entity_id', '=', 'books.id');
+					$subQuery->where('books.ismasterbook', '=', 0);
+				} */
 
         $subQuery->addBinding($scoreSelect['bindings'], 'select');
 
+				Log::info($entityname);
         $subQuery->where('entity_type', '=', $entity->getMorphClass());
+				if (!$isAdmin && ($entityname == 'chapter' || $entityname == 'page')) {
+					Log::info('inside chapter/page');
+					$subQuery->join($entityTableName, 'entity_id', '=', $entityTableName . '.id');
+					$subQuery->whereIn($entityTableName . '.book_id', function ($query) {
+						$query->select('id')
+							->from(with(new Book)->getTable())
+							->where('ismasterbook', 0);
+					});
+				} elseif (!$isAdmin && ($entityname == 'chapter' || $entityname == 'page')) {
+			Log::info('inside chapter/page');
+			$subQuery->join($entityTableName, 'entity_id', '=', $entityTableName . '.id');
+			$subQuery->whereIn($entityTableName . '.book_id', function ($query) {
+				$query->select('id')
+					->from(with(new Book)->getTable())
+					->where('ismasterbook', 1);
+			});
+		}
+
         $subQuery->where(function (Builder $query) use ($terms) {
             foreach ($terms as $inputTerm) {
                 $query->orWhere('term', 'like', $inputTerm . '%');
@@ -335,6 +404,7 @@ class SearchRunner
      */
     protected function applyTagSearch(EloquentBuilder $query, string $tagTerm): EloquentBuilder
     {
+			Log::info('applyTagSearch');
         preg_match('/^(.*?)((' . $this->getRegexEscapedOperators() . ')(.*?))?$/', $tagTerm, $tagSplit);
         $query->whereHas('tags', function (EloquentBuilder $query) use ($tagSplit) {
             $tagName = $tagSplit[1];
@@ -470,6 +540,15 @@ class SearchRunner
         if (method_exists($this, $functionName)) {
             $this->$functionName($query, $model);
         }
+    }
+
+		protected function filterIsMasterBook(EloquentBuilder $query, Entity $model, $input)
+    {
+			Log::info("filterismasterbook Book ");
+        //$userSlug = $input === 'me' ? user()->slug : trim($input);
+		if (!user()->hasSystemRole('admin') && $model instanceof Book) {
+			$query->where('ismasterbook', '=', 0);
+		}
     }
 
     /**

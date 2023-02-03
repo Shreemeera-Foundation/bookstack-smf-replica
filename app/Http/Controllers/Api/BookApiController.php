@@ -28,7 +28,7 @@ class BookApiController extends ApiController
         $books = Book::visible();
 
         return $this->apiListingResponse($books, [
-            'id', 'name', 'slug', 'description', 'created_at', 'updated_at', 'created_by', 'updated_by', 'owned_by',
+            'id', 'name', 'slug', 'description', 'created_at', 'updated_at', 'created_by', 'updated_by', 'owned_by','ismasterbook'
         ]);
     }
 
@@ -113,12 +113,14 @@ class BookApiController extends ApiController
             'create' => [
                 'name'        => ['required', 'string', 'max:255'],
                 'description' => ['string', 'max:1000'],
+								'ismasterbook' => ['boolean'],
                 'tags'        => ['array'],
                 'image'       => array_merge(['nullable'], $this->getImageValidationRules()),
             ],
             'update' => [
                 'name'        => ['string', 'min:1', 'max:255'],
                 'description' => ['string', 'max:1000'],
+								'ismasterbook' => ['boolean'],
                 'tags'        => ['array'],
                 'image'       => array_merge(['nullable'], $this->getImageValidationRules()),
             ],

@@ -98,6 +98,7 @@ class BookController extends Controller
             'description' => ['string', 'max:1000'],
             'image'       => array_merge(['nullable'], $this->getImageValidationRules()),
             'tags'        => ['array'],
+						'ismasterbook' => ['required']
         ]);
 
         $bookshelf = null;
@@ -107,6 +108,9 @@ class BookController extends Controller
         }
 
         $book = $this->bookRepo->create($validated);
+
+				$book->ismasterbook = $validated['ismasterbook'] === 'true';
+        $book->save();
 
         if ($bookshelf) {
             $bookshelf->appendBook($book);
@@ -171,6 +175,7 @@ class BookController extends Controller
             'description' => ['string', 'max:1000'],
             'image'       => array_merge(['nullable'], $this->getImageValidationRules()),
             'tags'        => ['array'],
+						'ismasterbook' => ['required']
         ]);
 
         if ($request->has('image_reset')) {
@@ -180,6 +185,9 @@ class BookController extends Controller
         }
 
         $book = $this->bookRepo->update($book, $validated);
+
+				$book->ismasterbook = $validated['ismasterbook'] === 'true';
+        $book->save();
 
         return redirect($book->getUrl());
     }

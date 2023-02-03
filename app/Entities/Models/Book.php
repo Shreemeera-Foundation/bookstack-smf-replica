@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
  *
  * @property string                                   $description
  * @property int                                      $image_id
+ * @property boolean                                  $ismasterbook
  * @property Image|null                               $cover
  * @property \Illuminate\Database\Eloquent\Collection $chapters
  * @property \Illuminate\Database\Eloquent\Collection $pages
@@ -27,7 +28,7 @@ class Book extends Entity implements HasCoverImage
 
     public $searchFactor = 1.2;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description','ismasterbook'];
     protected $hidden = ['pivot', 'image_id', 'deleted_at'];
 
     /**
