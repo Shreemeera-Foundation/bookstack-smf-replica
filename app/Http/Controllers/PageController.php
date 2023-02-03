@@ -484,8 +484,6 @@ class PageController extends Controller
 					'userLogDescription' => user()->logDescriptor()
 				]);
 
-        return response()->json([
-					"message"=>"asdfsad"
-				]);	
+        return response()->json([]);	
     }
 }

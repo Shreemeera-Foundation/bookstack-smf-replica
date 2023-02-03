@@ -219,6 +219,6 @@ class JiraService
 			$body
 		);
 
-		var_dump($response);
+		return $response;
 	}
 }

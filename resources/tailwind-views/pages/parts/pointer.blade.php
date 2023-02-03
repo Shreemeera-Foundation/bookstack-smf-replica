@@ -6,8 +6,9 @@
 				<div class="smf-w-full smf-mb-2">
 					<form component="ajax-form"
 						option:ajax-form:local-storage-property='currentPointerSelectionText,currentPermalink'
-						option:ajax-form:success-message="{{ trans('components.feedback_sent_success') }}"
 						option:ajax-form:method="post"
+						option:ajax-form:clear-after-submit="true"
+						option:ajax-form:success-message="{{ trans('components.feedback_sent_success') }}"
 						option:ajax-form:url="{{ url('/ajax/page/'.$page->id.'/sendFeedback') }}">
 
 						<div class="form-group stretch-inputs">

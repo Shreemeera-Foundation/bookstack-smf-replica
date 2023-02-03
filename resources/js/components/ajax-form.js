@@ -18,6 +18,7 @@ export class AjaxForm extends Component {
         this.method = this.$opts.method || 'post';
         this.successMessage = this.$opts.successMessage;
         this.submitButtons = this.$manyRefs.submit || [];
+				this.clearAfterSubmit = this.$opts.clearAfterSubmit === 'true'
 
         if (this.$opts.responseContainer) {
             this.responseContainer = this.container.closest(this.$opts.responseContainer);
@@ -75,11 +76,16 @@ export class AjaxForm extends Component {
         try {
             const resp = await window.$http[this.method.toLowerCase()](this.url, formData);
             this.$emit('success', {formData});
-            this.responseContainer.innerHTML = resp.data;
+						if(this.clearAfterSubmit) {
+							this.container.reset();  // Reset all form data
+						} else {
+							this.responseContainer.innerHTML = resp.data;
+						}
             if (this.successMessage) {
                 window.$events.emit('success', this.successMessage);
             }
         } catch (err) {
+						console.log(err);
             this.responseContainer.innerHTML = err.data;
         }
 

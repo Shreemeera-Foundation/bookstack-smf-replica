@@ -31,4 +31,9 @@ return [
     'code_content' => 'Code Content',
     'code_session_history' => 'Session History',
     'code_save' => 'Save Code',
+
+		// Feedback
+		'feedback' => 'Feedback',
+		'feedback_send' => 'Send feedback',
+		'feedback_sent_success' => 'Feedback sent'
 ];
