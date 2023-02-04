@@ -12,13 +12,13 @@
 			<div class="smf-items-center smf-justify-between smf-hidden smf-w-full md:smf-flex md:smf-w-auto md:smf-order-0 lg:smf-mr-4" id="navbar-sticky">
 				<ul class="smf-flex smf-flex-col smf-p-4 smf-mt-4 smf-border smf-border-gray-100 smf-rounded-lg smf-bg-gray-50 md:smf-flex-row md:smf-space-x-8 md:smf-mt-0 md:smf-text-sm md:smf-font-medium md:smf-border-0 md:smf-bg-white dark:smf-bg-gray-800 md:dark:smf-bg-gray-900 dark:smf-border-gray-700">
 				  <li>
-					<a href="/login" class="smf-block smf-py-2 smf-pl-3 smf-pr-4 smf-text-white smf-bg-blue-700 smf-rounded md:smf-bg-transparent md:smf-text-primary-700 md:smf-p-0 dark:smf-text-white" aria-current="page">Books</a>
+					<a href="/login" class="smf-block smf-py-2 smf-pl-3 smf-pr-4 smf-text-white smf-bg-blue-700 smf-rounded md:smf-bg-transparent md:smf-text-primary-700 md:smf-p-0 dark:smf-text-white" aria-current="page">{{ trans('entities.books') }}</a>
 				  </li>
 				  <li>
-					<a href="/login" class="smf-block smf-py-2 smf-pl-3 smf-pr-4 smf-text-gray-700 smf-rounded hover:smf-bg-gray-100 md:hover:smf-bg-transparent md:hover:smf-text-primary-700 md:smf-p-0 md:dark:hover:smf-text-white dark:smf-text-gray-400 dark:hover:smf-bg-gray-700 dark:hover:smf-text-white md:dark:hover:smf-bg-transparent dark:smf-border-gray-700">Shelves</a>
+					<a href="/login" class="smf-block smf-py-2 smf-pl-3 smf-pr-4 smf-text-gray-700 smf-rounded hover:smf-bg-gray-100 md:hover:smf-bg-transparent md:hover:smf-text-primary-700 md:smf-p-0 md:dark:hover:smf-text-white dark:smf-text-gray-400 dark:hover:smf-bg-gray-700 dark:hover:smf-text-white md:dark:hover:smf-bg-transparent dark:smf-border-gray-700">{{ trans('entities.shelves') }}</a>
 				  </li>
 				  <li>
-					<a href="/login" class="smf-block smf-py-2 smf-pl-3 smf-pr-4 smf-text-gray-700 smf-rounded hover:smf-bg-gray-100 md:hover:smf-bg-transparent md:hover:smf-text-primary-700 md:smf-p-0 md:dark:hover:smf-text-white dark:smf-text-gray-400 dark:hover:smf-bg-gray-700 dark:hover:smf-text-white md:dark:hover:smf-bg-transparent dark:smf-border-gray-700">Login</a>
+					<a href="/login" class="smf-block smf-py-2 smf-pl-3 smf-pr-4 smf-text-gray-700 smf-rounded hover:smf-bg-gray-100 md:hover:smf-bg-transparent md:hover:smf-text-primary-700 md:smf-p-0 md:dark:hover:smf-text-white dark:smf-text-gray-400 dark:hover:smf-bg-gray-700 dark:hover:smf-text-white md:dark:hover:smf-bg-transparent dark:smf-border-gray-700">{{ trans('auth.log_in') }}</a>
 				  </li>
 				</ul>
 			</div>
