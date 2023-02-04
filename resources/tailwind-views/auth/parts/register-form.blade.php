@@ -11,9 +11,8 @@
             placeholder="Email" required="true">
     </div>
 		<div>
-			<input type="number" name="mobile" id="mobile"
-						 class="smf-bg-gray-50 smf-border smf-border-gray-300 smf-text-gray-900 sm:smf-text-sm smf-rounded-lg focus:ring-primary-600 focus:border-primary-600 smf-block smf-w-full smf-p-2.5 dark:smf-bg-gray-700 dark:smf-border-gray-600 dark:smf-placeholder-gray-400 dark:smf-text-white dark:focus:smf-ring-blue-500 dark:focus:smf-border-blue-500"
-						 placeholder="Mobile" required="false">
+			<label for="mobile">{{ trans('auth.mobile') }}</label>
+			@include('form.number', ['name' => 'mobile','min' => 1000000000, 'max' => 999999999999999])
 		</div>
     <div>
         <input type="password" name="password" id="password" placeholder="Password"
