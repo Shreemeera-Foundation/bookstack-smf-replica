@@ -67,6 +67,11 @@ $style = [
     'button--green' => 'background-color: #22BC66;',
     'button--red' => 'background-color: #dc4d2f;',
     'button--blue' => 'background-color: '.setting('app-color').';',
+
+		/* Logo ------------------------------ */
+		'logo' => ' display: inline-flex; padding: ($-s - 6px) $-s; margin: 6px (-$-s); gap: $-s; align-items: center; border-radius: 4px; &:hover {color: #FFF; text-decoration: none; background-color: rgba(255, 255, 255, .15); }',
+		'logo-image' => 'height: 43px;',
+		'logo-text' => 'font-size: 1.8em; color: #fff; font-weight: 400; line-height: 1;',
 ];
 ?>
 
@@ -83,9 +88,11 @@ $style = [
                                 <!-- Logo -->
                                 <tr>
                                     <td style="{{ $style['email-masthead'] }}">
-                                        <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                                            {{ setting('app-name') }}
-                                        </a>
+																				<a href="{{ url('/') }}" data-shortcut="home_view" style="{{ $style['logo'] }}">
+																					@if(setting('app-logo', '') !== 'none')
+																							<img class="logo-image" src="{{ setting('app-logo', '') === '' ? url('/logo.png') : url(setting('app-logo', '')) }}" alt="Logo">
+																					@endif
+																			</a>
                                     </td>
                                 </tr>
 
