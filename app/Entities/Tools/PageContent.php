@@ -16,6 +16,8 @@ use DOMNode;
 use DOMNodeList;
 use DOMXPath;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use BookStack\Entities\EntityProvider;
 
 class PageContent
 {
@@ -284,9 +286,13 @@ class PageContent
     /**
      * Render the page for viewing.
      */
-    public function render(bool $blankIncludes = false): string
+    public function render(bool $blankIncludes = false, bool $enableLogger = false): string
     {
-        $content = $this->page->html ?? '';
+        $content = $this->page->html ?? ''; 
+
+				if($enableLogger) {
+					Log::info("render function content: {$content}");
+				}
 
         if (!config('app.allow_content_scripts')) {
             $content = HtmlContentFilter::removeScripts($content);
@@ -295,8 +301,12 @@ class PageContent
         if ($blankIncludes) {
             $content = $this->blankPageIncludes($content);
         } else {
-            $content = $this->parsePageIncludes($content);
+            $content = $this->parsePageIncludes($content, $enableLogger);
         }
+
+				if($enableLogger) {
+					Log::info("render function parsed content: {$content}");
+				}
 
         return $content;
     }
@@ -359,7 +369,7 @@ class PageContent
     /**
      * Parse any include tags "{{@<page_id>#section}}" to be part of the page.
      */
-    protected function parsePageIncludes(string $html): string
+    protected function parsePageIncludes(string $html, bool $enableLogger = false): string
     {
         $matches = [];
         preg_match_all("/{{@\s?([0-9].*?)}}/", $html, $matches);
@@ -376,7 +386,13 @@ class PageContent
 
             // Find page to use, and default replacement to empty string for non-matches.
             /** @var ?Page $matchedPage */
-            $matchedPage = Page::visible()->find($pageId);
+						try {
+							$matchedPage	= (new EntityProvider())->get('page')->findOrFail($pageId);
+						} catch (\Exception $exception) {
+							$lastError = $exception->getMessage();
+            	Log::error("matchedPage failed with error \"{$lastError}\"");
+							$matchedPage = Page::visible()->find($pageId);
+						}
             $replacement = '';
 
             if ($matchedPage && count($splitInclude) === 1) {
@@ -387,6 +403,12 @@ class PageContent
                 $innerContent = $this->fetchSectionOfPage($matchedPage, $splitInclude[1]);
                 $replacement = trim($innerContent);
             }
+
+						if($enableLogger) {
+							Log::info("orginal pageId {$pageId} HTML: {$html}");
+							Log::info("replacement html {$replacement}");
+						}
+		
 
             $themeReplacement = Theme::dispatch(
                 ThemeEvents::PAGE_INCLUDE_PARSE,

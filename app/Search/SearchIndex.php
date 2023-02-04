@@ -10,6 +10,8 @@ use DOMDocument;
 use DOMNode;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use BookStack\Entities\Tools\PageContent;
+use Illuminate\Support\Facades\Log;
 
 class SearchIndex
 {
@@ -223,9 +225,25 @@ class SearchIndex
     {
         $nameTermsMap = $this->generateTermScoreMapFromText($entity->name, 40 * $entity->searchFactor);
         $tagTermsMap = $this->generateTermScoreMapFromTags($entity->tags->all());
+				$entityId = $entity->id;
+        $entityType = $entity->getMorphClass();
 
         if ($entity instanceof Page) {
-            $bodyTermsMap = $this->generateTermScoreMapFromHtml($entity->html);
+						// if($entityId === 312) {
+						// 	Log::info("Before parsing {$entity->html}");
+						// }
+						$pageContent = new PageContent($entity);
+						// $html = $pageContent->render(false, $entityId === 312);
+						$html = $pageContent->render();
+						// if($entityId === 312) {
+						// 	Log::info("Before parsing {$html}");
+						// }
+						
+
+						// Log::info($html);
+            // $bodyTermsMap = $this->generateTermScoreMapFromHtml($entity->html);
+						$bodyTermsMap = $this->generateTermScoreMapFromHtml($html);
+						// Log::info($html.`\n\n`.implode(", ", $bodyTermsMap));
         } else {
             $bodyTermsMap = $this->generateTermScoreMapFromText($entity->getAttribute('description') ?? '', $entity->searchFactor);
         }
@@ -233,9 +251,8 @@ class SearchIndex
         $mergedScoreMap = $this->mergeTermScoreMaps($nameTermsMap, $bodyTermsMap, $tagTermsMap);
 
         $dataArray = [];
-        $entityId = $entity->id;
-        $entityType = $entity->getMorphClass();
         foreach ($mergedScoreMap as $term => $score) {
+						// Log::info(`\n`.$term.' '. $entityType .' '. $entityId );
             $dataArray[] = [
                 'term'        => $term,
                 'score'       => $score,
@@ -244,6 +261,7 @@ class SearchIndex
             ];
         }
 
+				// Log::info("\n Entity {$entityType} -> {$entityId} parsing completed");
         return $dataArray;
     }
 
