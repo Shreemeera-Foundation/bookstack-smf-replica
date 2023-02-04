@@ -127,10 +127,10 @@ class JiraService
 			"fields": {
 				"summary": {$summary},
 				"issuetype": {
-					"id": "10007"
+					"id": {$config['bugTypeIssueId']}
 				},
 				"project": {
-					"id": "10001"
+					"id": {$config['projectId']}
 				},
 				$description,
 				"labels":[
