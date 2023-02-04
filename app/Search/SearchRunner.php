@@ -179,7 +179,7 @@ class SearchRunner
 					$entityQuery->whereIn('book_id', function ($query) {
 					$query->select('id')
 					->from(with(new Book)->getTable())
-					->where('ismasterbook',0);
+					->where('ismasterbook','=',0);
 					});
 				}
 				elseif($isAdmin && ($entityname == 'chapter' || $entityname == 'page')){
@@ -187,7 +187,7 @@ class SearchRunner
 					$entityQuery->whereIn('book_id', function ($query) {
 					$query->select('id')
 					->from(with(new Book)->getTable())
-					->where('ismasterbook',1);
+					->whereIn('ismasterbook',[1,0]);
 					});
 				}
 
@@ -244,25 +244,6 @@ class SearchRunner
             DB::raw($scoreSelect['statement']),
         ]);
 				Log::info($entityname);
-
-/* 				if($entityname == 'chapter'){
-					Log::info('inside chapter');
-					$subQuery->join('chapters','entity_id','chapters.id');
-					$subQuery->join('books', 'chapters.book_id', '=', 'books.id');
-					$subQuery->where('books.ismasterbook', '=', 0);
-				}
-				elseif( $entityname == 'page'){
-					Log::info('inside pages');
-					$subQuery->join('pages','entity_id','pages.id');
-					$subQuery->join('books', 'pages.book_id', '=', 'books.id');
-					$subQuery->where('books.ismasterbook', '=', 0);
-				}
-				elseif( $entityname == 'book'){
-					Log::info('inside book');
-					$subQuery->join('books', 'entity_id', '=', 'books.id');
-					$subQuery->where('books.ismasterbook', '=', 0);
-				} */
-
         $subQuery->addBinding($scoreSelect['bindings'], 'select');
 
 				Log::info($entityname);
@@ -273,15 +254,15 @@ class SearchRunner
 					$subQuery->whereIn($entityTableName . '.book_id', function ($query) {
 						$query->select('id')
 							->from(with(new Book)->getTable())
-							->where('ismasterbook', 0);
+							->where('ismasterbook', '=',0);
 					});
-				} elseif (!$isAdmin && ($entityname == 'chapter' || $entityname == 'page')) {
+				} elseif ($isAdmin && ($entityname == 'chapter' || $entityname == 'page')) {
 			Log::info('inside chapter/page');
 			$subQuery->join($entityTableName, 'entity_id', '=', $entityTableName . '.id');
 			$subQuery->whereIn($entityTableName . '.book_id', function ($query) {
 				$query->select('id')
 					->from(with(new Book)->getTable())
-					->where('ismasterbook', 1);
+					->whereIn('ismasterbook', [1,0]);
 			});
 		}
 
@@ -544,9 +525,14 @@ class SearchRunner
 
 		protected function filterIsMasterBook(EloquentBuilder $query, Entity $model, $input)
     {
+
 			Log::info("filterismasterbook Book ");
         //$userSlug = $input === 'me' ? user()->slug : trim($input);
-		if (!user()->hasSystemRole('admin') && $model instanceof Book) {
+		if (user()->hasSystemRole('admin') && $model instanceof Book) {
+			$query->whereIn('ismasterbook', [1,0]);
+		}
+		elseif(!user()->hasSystemRole('admin') && $model instanceof Book)
+		{
 			$query->where('ismasterbook', '=', 0);
 		}
     }
