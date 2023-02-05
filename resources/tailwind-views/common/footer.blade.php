@@ -1,5 +1,5 @@
 <button id="floatingFeedbackButton" title="Contact Sale"
-class="smf-fixed z-90 smf-bottom-20 smf-right-4 smf-bg-primary-600 smf-w-16 smf-h-16 smf-rounded-full drop-shadow-lg smf-flex smf-justify-center smf-items-center smf-text-white smf-text-4xl hover:smf-bg-primary-700 hover:drop-shadow-2xl">
+class="smf-fixed smf-z-10 smf-bottom-20 smf-right-4 smf-bg-primary-600 smf-w-16 smf-h-16 smf-rounded-full drop-shadow-lg smf-flex smf-justify-center smf-items-center smf-text-white smf-text-4xl hover:smf-bg-primary-700 hover:drop-shadow-2xl">
 	@icon('comment', ['className' => 'smf-w-6 smf-h-6 smf-m-0'])
 </button>
 
