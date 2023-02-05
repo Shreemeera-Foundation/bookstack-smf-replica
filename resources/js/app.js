@@ -55,6 +55,7 @@ $.when($.ready).then(function () {
 				window.location.href = `/register`;
 		})
 
-
-		
+		$("#floatingFeedbackButton").on('click', ()=>{
+			window.location = "mailto:support@shreemeera.org";
+		})
 });

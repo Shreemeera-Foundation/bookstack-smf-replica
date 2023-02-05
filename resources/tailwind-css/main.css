@@ -35,3 +35,7 @@
 		@apply smf-text-sm;
 	}
 }
+
+.smf-submit-button {
+	@apply smf-w-full smf-text-white smf-bg-primary-600 hover:smf-bg-primary-700 focus:smf-ring-4 focus:smf-outline-none focus:smf-ring-primary-300 smf-font-medium smf-rounded-lg smf-text-sm smf-px-5 smf-py-2.5 smf-text-center
+}
