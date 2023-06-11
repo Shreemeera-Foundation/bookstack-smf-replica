@@ -39,3 +39,8 @@
 .smf-submit-button {
 	@apply smf-w-full smf-text-white smf-bg-primary-600 hover:smf-bg-primary-700 focus:smf-ring-4 focus:smf-outline-none focus:smf-ring-primary-300 smf-font-medium smf-rounded-lg smf-text-sm smf-px-5 smf-py-2.5 smf-text-center
 }
+
+/* Page content CSS customization */
+.page-content h1 {
+	@apply smf-mb-4 smf-text-3xl smf-font-extrabold smf-leading-tight smf-text-gray-900 smf-mb-6 smf-text-4xl;
+}
